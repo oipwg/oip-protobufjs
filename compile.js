@@ -10,8 +10,25 @@ fs.readdir(messagesDirectory, function (err, files) {
     process.exit(1)
   }
 
+  function readDirs (path) {
+    let files = fs.readdirSync(path)
+    files.forEach(function (file, index) {
+      if (fs.lstatSync(`${path}${file}`).isDirectory()) {
+        let updatedPath = `${path}${file}/`
+        readDirs(updatedPath)
+      } else {
+        protofilePaths.push(`${path}${file}`)
+      }
+    })
+  }
+
   files.forEach(function (file, index) {
-    protofilePaths.push(`${messagesDirectory}${file}`)
+    // console.log(fs.lstatSync(`${messagesDirectory}${file}`).isDirectory())
+    if (fs.lstatSync(`${messagesDirectory}${file}`).isDirectory()) {
+      readDirs(`${messagesDirectory}${file}/`)
+    } else {
+      protofilePaths.push(`${messagesDirectory}${file}`)
+    }
   })
 
   const compileJson = `pbjs -t json ${protofilePaths.join(' ')} -o ./src/compiled/json/compiled.json`

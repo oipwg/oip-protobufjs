@@ -11,10 +11,10 @@ const protoScalarValues = [
 
 describe('protobuf.js', () => {
   it('default load proto file', async () => {
-    let root = await protobuf.load(path.resolve('./', 'src', 'messages', 'RecordTemplate.proto'))
+    let root = await protobuf.load(path.resolve('./', 'src', 'messages', 'oipProto', 'recordTemplate.proto'))
     expect(root).toBeInstanceOf(Root)
 
-    let MessageType = root.lookupType('oip5.RecordTemplateProto') // packagename.MessageName
+    let MessageType = root.lookupType('oipProto.RecordTemplateProto') // packagename.MessageName
     expect(MessageType).toBeInstanceOf(Type)
 
     let payload = { friendlyName: 'RandomString' }
@@ -40,21 +40,21 @@ describe('protobuf.js', () => {
     })
   })
   it('load proto, toJSON === compiled fromJSON', async () => {
-    let root = await protobuf.load(path.resolve('./', 'src', 'messages', 'RecordTemplate.proto'))
+    let root = await protobuf.load(path.resolve('./', 'src', 'messages', 'oipProto', 'recordTemplate.proto'))
     expect(root).toBeInstanceOf(Root)
-    expect(root.lookupType('oip5.RecordTemplateProto')).toBeInstanceOf(Type)
-    const compiledJson = require('../src/index').json
-    expect(root.toJSON().nested.oip5.nested.record).toEqual(compiledJson.nested.oip5.nested.record)
+    expect(root.lookupType('oipProto.RecordTemplateProto')).toBeInstanceOf(Type)
+    const compiledJson = require('../src/index').ProtoModulesJson
+    expect(root.toJSON().nested.oipProto.nested.record).toEqual(compiledJson.nested.oipProto.nested.record)
 
-    let root2 = Root.fromJSON(compiledJson.nested.oip5)
+    let root2 = Root.fromJSON(compiledJson.nested.oipProto)
     expect(root2).toBeInstanceOf(Root)
-    expect(root2.lookupType('record.RecordTemplateProto')).toBeInstanceOf(Type)
+    expect(root2.lookupType('RecordTemplateProto')).toBeInstanceOf(Type)
   })
   it('JsonDescriptor >> FileDescriptorSet', () => {
-    const compiledJson = require('../src/index').json
+    const compiledJson = require('../src/index').ProtoModulesJson
     let root = protobuf.Root.fromJSON(compiledJson)
     expect(root).toBeInstanceOf(Root)
-    let RecordTemplateType = root.lookupType('oip5.RecordTemplateProto')
+    let RecordTemplateType = root.lookupType('oipProto.RecordTemplateProto')
     expect(RecordTemplateType).toBeInstanceOf(Type)
 
     // let desc = RecordTemplateType.toDescriptor('proto3')
@@ -91,8 +91,8 @@ describe('protobuf.js', () => {
       description: 'wut',
       DescriptorSetProto: 'shouldBeBytes'
     }
-    let root = protobuf.Root.fromJSON(require('../src').json)
-    let typeRecordTemplate = root.lookupType('oip5.RecordTemplateProto')
+    let root = protobuf.Root.fromJSON(require('../src').ProtoModulesJson)
+    let typeRecordTemplate = root.lookupType('oipProto.RecordTemplateProto')
     let err = typeRecordTemplate.verify(messageTemp)
     if (err) {
       console.log(err)
@@ -164,8 +164,8 @@ describe('protobuf.js', () => {
     }
   })
   it('require compiled static-module', () => {
-    const rootmodules = require('../src/index').staticModules
-    const RecordTemplateProto = rootmodules.oip5.record.RecordTemplateProto
+    const rootmodules = require('../src/index').ProtoModules
+    const RecordTemplateProto = rootmodules.oipProto.RecordTemplateProto
 
     let payload = {
       friendlyName: 'ryan test',

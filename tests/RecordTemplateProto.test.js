@@ -5,7 +5,7 @@ import { util as protoUtil } from 'protobufjs'
 import { verify } from 'bitcoinjs-message'
 
 import {
-  staticModules,
+  ProtoModules,
   templateBuilder,
   buildRecordTemplate,
   signMessage,
@@ -20,9 +20,9 @@ const network = {
   flo_testnet: floTestnet.network
 }
 
-const RecordTemplateProto = staticModules.oip5.record.RecordTemplateProto
-const SignedMessage = staticModules.oipProto.SignedMessage
-const OipFiveProto = staticModules.oip5.OipFive
+const RecordTemplateProto = ProtoModules.oipProto.RecordTemplateProto
+const SignedMessage = ProtoModules.oipProto.SignedMessage
+const OipFiveProto = ProtoModules.oipProto.OipFive
 
 const wif = 'cRVa9rNx5N1YKBw8PhavegJPFCiYCfC4n8cYmdc3X1Y6TyFZGG4B'
 const p2pkh = 'ofbB67gqjgaYi45u8Qk2U3hGoCmyZcgbN4'

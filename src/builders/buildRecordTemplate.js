@@ -1,13 +1,19 @@
 import { util } from 'protobufjs'
-import { staticModules } from '../index'
+import { ProtoModules } from '../index'
 
-const RecordTemplateProto = staticModules.oip5.record.RecordTemplateProto
+const RecordTemplateProto = ProtoModules.oipProto.RecordTemplateProto
 
-export default function buildRecordTemplate ({ friendlyName, description, DescriptorSetProto }) {
+export default function buildRecordTemplate ({
+  friendlyName,
+  description,
+  DescriptorSetProto,
+  extend
+}) {
   const templatePayload = {
     friendlyName,
     description,
-    DescriptorSetProto
+    DescriptorSetProto,
+    extends: extend
   }
 
   let err = RecordTemplateProto.verify(templatePayload)

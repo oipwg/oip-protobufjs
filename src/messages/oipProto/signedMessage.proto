@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package oipProto;
 
 option go_package = "oipProto";
@@ -26,7 +27,6 @@ enum MessageTypes {
     Historian = 2;
     // Multipart
     Multipart = 3;
-
 }
 
 // Currently supported signature verification means

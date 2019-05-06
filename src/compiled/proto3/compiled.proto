@@ -1,35 +1,49 @@
 syntax = "proto3";
 
-message oip5 {
+message oipProto {
 
-    option go_package = "oip5";
+    option go_package = "oipProto";
+
+    message HistorianDataPoint {
+
+        int32 Version = 1;
+        bytes Pub_key = 2;
+        double Mining_rig_rentals_last10 = 3;
+        double Mining_rig_rentals_last24_hr = 4;
+        double Autominer_pool_hashrate = 5;
+        double Flo_net_hash_rate = 6;
+        double Flo_market_priceBT_c = 7;
+        double Flo_market_priceUS_d = 8;
+        double Ltc_market_priceUS_d = 9;
+        double Nice_hash_last = 10;
+        double Nice_hash24hr = 11;
+    }
+
+    message HistorianPayout {
+
+        int32 Version = 1;
+    }
+
+    message MultiPart {
+
+        uint32 current_part = 1;
+        uint32 count_parts = 2;
+        bytes raw_data = 3;
+        Txid reference = 4;
+    }
+
+    message Txid {
+
+        bytes raw = 1;
+    }
 
     message OipFive {
 
-        record.RecordTemplateProto record_template = 1;
+        RecordTemplateProto record_template = 1;
         RecordProto record = 2;
         Transfer transfer = 7;
         Deactivate deactivate = 8;
         Edit edit = 9;
-    }
-
-    message RecordProto {
-
-        repeated string tags = 4;
-        Payment payment = 6;
-        OipDetails details = 7;
-        Permissions permissions = 8;
-    }
-
-    message OipDetails {
-
-        repeated google.protobuf.Any details = 1;
-    }
-
-    message Payment {
-    }
-
-    message Permissions {
     }
 
     message Transfer {
@@ -41,37 +55,33 @@ message oip5 {
     message Edit {
     }
 
-    message record {
+    message RecordProto {
 
-        option go_package = "oip5";
-
-        message RecordTemplateProto {
-
-            string friendly_name = 1;
-            string description = 2;
-            bytes Descriptor_set_proto = 4;
-            fixed64 identifier = 10;
-            repeated fixed64 recommended = 11;
-            repeated fixed64 required = 12;
-        }
+        repeated string tags = 4;
+        Payment payment = 6;
+        OipDetails details = 7;
+        Permissions permissions = 8;
     }
-}
 
-message google {
-
-    message protobuf {
-
-        message Any {
-
-            string type_url = 1;
-            bytes value = 2;
-        }
+    message Permissions {
     }
-}
 
-message oipProto {
+    message Payment {
+    }
 
-    option go_package = "oipProto";
+    message OipDetails {
+
+        repeated google.protobuf.Any details = 1;
+    }
+
+    message RecordTemplateProto {
+
+        string friendly_name = 1;
+        string description = 2;
+        bytes Descriptor_set_proto = 4;
+        repeated sfixed64 extends = 12;
+        sfixed64 identifier = 10;
+    }
 
     message SignedMessage {
 
@@ -97,5 +107,47 @@ message oipProto {
         Btc = 2;
         Rvn = 3;
         Tx = 4;
+    }
+
+    message templates {
+
+        option go_package = "github.com/oipwg/oip/proto/templates";
+
+        message tmpl_000000000000F113 {
+
+            string display_name = 1;
+            string file_path = 2;
+            uint64 size = 3;
+            string content_type = 4;
+            Network network = 5;
+            string location = 6;
+        }
+
+        enum Network {
+
+            UNKNOWN_NETWORK = 0;
+            IPFS = 1;
+            WEB_TORRENT = 2;
+            HTTP = 3;
+        }
+
+        message tmpl_00000000000BA51C {
+
+            string title = 1;
+            string description = 2;
+            int64 year = 3;
+        }
+    }
+}
+
+message google {
+
+    message protobuf {
+
+        message Any {
+
+            string type_url = 1;
+            bytes value = 2;
+        }
     }
 }

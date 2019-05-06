@@ -12,15 +12,99 @@
 
     var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $protobuf.Root()))
     .addJSON({
-      oip5: {
+      oipProto: {
         options: {
-          go_package: "oip5"
+          go_package: "oipProto"
         },
         nested: {
+          HistorianDataPoint: {
+            fields: {
+              Version: {
+                type: "int32",
+                id: 1
+              },
+              PubKey: {
+                type: "bytes",
+                id: 2
+              },
+              MiningRigRentalsLast10: {
+                type: "double",
+                id: 3
+              },
+              MiningRigRentalsLast24Hr: {
+                type: "double",
+                id: 4
+              },
+              AutominerPoolHashrate: {
+                type: "double",
+                id: 5
+              },
+              FloNetHashRate: {
+                type: "double",
+                id: 6
+              },
+              FloMarketPriceBTC: {
+                type: "double",
+                id: 7
+              },
+              FloMarketPriceUSD: {
+                type: "double",
+                id: 8
+              },
+              LtcMarketPriceUSD: {
+                type: "double",
+                id: 9
+              },
+              NiceHashLast: {
+                type: "double",
+                id: 10
+              },
+              NiceHash24hr: {
+                type: "double",
+                id: 11
+              }
+            }
+          },
+          HistorianPayout: {
+            fields: {
+              Version: {
+                type: "int32",
+                id: 1
+              }
+            }
+          },
+          MultiPart: {
+            fields: {
+              currentPart: {
+                type: "uint32",
+                id: 1
+              },
+              countParts: {
+                type: "uint32",
+                id: 2
+              },
+              rawData: {
+                type: "bytes",
+                id: 3
+              },
+              reference: {
+                type: "Txid",
+                id: 4
+              }
+            }
+          },
+          Txid: {
+            fields: {
+              raw: {
+                type: "bytes",
+                id: 1
+              }
+            }
+          },
           OipFive: {
             fields: {
               recordTemplate: {
-                type: "record.RecordTemplateProto",
+                type: "RecordTemplateProto",
                 id: 1
               },
               record: {
@@ -40,6 +124,15 @@
                 id: 9
               }
             }
+          },
+          Transfer: {
+            fields: {}
+          },
+          Deactivate: {
+            fields: {}
+          },
+          Edit: {
+            fields: {}
           },
           RecordProto: {
             fields: {
@@ -62,6 +155,12 @@
               }
             }
           },
+          Permissions: {
+            fields: {}
+          },
+          Payment: {
+            fields: {}
+          },
           OipDetails: {
             fields: {
               details: {
@@ -71,85 +170,31 @@
               }
             }
           },
-          Payment: {
-            fields: {}
-          },
-          Permissions: {
-            fields: {}
-          },
-          Transfer: {
-            fields: {}
-          },
-          Deactivate: {
-            fields: {}
-          },
-          Edit: {
-            fields: {}
-          },
-          record: {
-            options: {
-              go_package: "oip5"
-            },
-            nested: {
-              RecordTemplateProto: {
-                fields: {
-                  friendlyName: {
-                    type: "string",
-                    id: 1
-                  },
-                  description: {
-                    type: "string",
-                    id: 2
-                  },
-                  DescriptorSetProto: {
-                    type: "bytes",
-                    id: 4
-                  },
-                  identifier: {
-                    type: "fixed64",
-                    id: 10
-                  },
-                  recommended: {
-                    rule: "repeated",
-                    type: "fixed64",
-                    id: 11
-                  },
-                  required: {
-                    rule: "repeated",
-                    type: "fixed64",
-                    id: 12
-                  }
-                }
+          RecordTemplateProto: {
+            fields: {
+              friendlyName: {
+                type: "string",
+                id: 1
+              },
+              description: {
+                type: "string",
+                id: 2
+              },
+              DescriptorSetProto: {
+                type: "bytes",
+                id: 4
+              },
+              "extends": {
+                rule: "repeated",
+                type: "sfixed64",
+                id: 12
+              },
+              identifier: {
+                type: "sfixed64",
+                id: 10
               }
             }
-          }
-        }
-      },
-      google: {
-        nested: {
-          protobuf: {
-            nested: {
-              Any: {
-                fields: {
-                  type_url: {
-                    type: "string",
-                    id: 1
-                  },
-                  value: {
-                    type: "bytes",
-                    id: 2
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      oipProto: {
-        options: {
-          go_package: "oipProto"
-        },
-        nested: {
+          },
           SignedMessage: {
             fields: {
               SerializedMessage: {
@@ -189,6 +234,85 @@
               Btc: 2,
               Rvn: 3,
               Tx: 4
+            }
+          },
+          templates: {
+            options: {
+              go_package: "github.com/oipwg/oip/proto/templates"
+            },
+            nested: {
+              tmpl_000000000000F113: {
+                fields: {
+                  displayName: {
+                    type: "string",
+                    id: 1
+                  },
+                  filePath: {
+                    type: "string",
+                    id: 2
+                  },
+                  size: {
+                    type: "uint64",
+                    id: 3
+                  },
+                  contentType: {
+                    type: "string",
+                    id: 4
+                  },
+                  network: {
+                    type: "Network",
+                    id: 5
+                  },
+                  location: {
+                    type: "string",
+                    id: 6
+                  }
+                }
+              },
+              Network: {
+                values: {
+                  UNKNOWN_NETWORK: 0,
+                  IPFS: 1,
+                  WEB_TORRENT: 2,
+                  HTTP: 3
+                }
+              },
+              tmpl_00000000000BA51C: {
+                fields: {
+                  title: {
+                    type: "string",
+                    id: 1
+                  },
+                  description: {
+                    type: "string",
+                    id: 2
+                  },
+                  year: {
+                    type: "int64",
+                    id: 3
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      google: {
+        nested: {
+          protobuf: {
+            nested: {
+              Any: {
+                fields: {
+                  type_url: {
+                    type: "string",
+                    id: 1
+                  },
+                  value: {
+                    type: "bytes",
+                    id: 2
+                  }
+                }
+              }
             }
           }
         }

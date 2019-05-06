@@ -1,8 +1,9 @@
 import { util } from 'protobufjs'
-import { staticModules } from '../index'
-const OipFiveProto = staticModules.oip5.OipFive
+import { ProtoModules } from '../index'
 
-export default function buildOipFiveTemplate (templateMessage) {
+const OipFiveProto = ProtoModules.oipProto.OipFive
+
+export default function buildOipFiveTemplate ( templateMessage ) {
   const templatePayload = {
     recordTemplate: templateMessage
   }

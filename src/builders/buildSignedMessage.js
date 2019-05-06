@@ -1,6 +1,6 @@
 import { util } from 'protobufjs'
-import { staticModules } from '../index'
-const SignedMessage = staticModules.oipProto.SignedMessage
+import { ProtoModules } from '../index'
+const SignedMessage = ProtoModules.oipProto.SignedMessage
 
 export default function buildSignedMessage ({
   SerializedMessage,

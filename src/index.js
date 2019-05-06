@@ -8,8 +8,8 @@ import {
 } from './builders'
 
 export {
-  json,
-  staticModules,
+  json as ProtoModulesJson,
+  staticModules as ProtoModules,
   buildOipFiveTemplate,
   buildRecordTemplate,
   buildSignedMessage,

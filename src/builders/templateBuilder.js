@@ -8,7 +8,14 @@ import {
   buildSignedMessage
 } from './index'
 
-export default function templateBuilder ({ friendlyName, description, DescriptorSetProto, wif, network = 'mainnet' }) {
+export default function templateBuilder ({
+  friendlyName,
+  description,
+  DescriptorSetProto,
+  extend,
+  wif,
+  network = 'mainnet'
+}) {
   if (!friendlyName || friendlyName === '') {
     throw new Error(`template name must be defined; was passed: ${friendlyName}`)
   }
@@ -29,7 +36,12 @@ export default function templateBuilder ({ friendlyName, description, Descriptor
   const keypair = ECPair.fromWIF(wif, network)
 
   // 1 build template message
-  let { templateMessage } = buildRecordTemplate({ friendlyName, description, DescriptorSetProto })
+  let { templateMessage } = buildRecordTemplate({
+    friendlyName,
+    description,
+    DescriptorSetProto,
+    extend
+  })
 
   // 2 build OIP5
   const { oip5messageBuffer, oip5message64 } = buildOipFiveTemplate(templateMessage)

@@ -3,6 +3,8 @@ import descriptor from 'protobufjs/ext/descriptor'
 
 import toPascalCase from 'js-pascalcase'
 
+const descriptorPackage = 'oipProto.templates'
+
 /**
  * @typedef {Object} fieldData
  * @param {string} fieldData.name - field name
@@ -55,7 +57,7 @@ export default function buildDescriptor (fieldData) {
     counter += 1
   }
   let root = new protobuf.Root()
-  root.define('oipProto.templates').add(P)
+  root.define(descriptorPackage).add(P)
   let descriptorFromRoot = root.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

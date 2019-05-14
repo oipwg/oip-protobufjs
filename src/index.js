@@ -4,7 +4,8 @@ import {
   buildRecordTemplate,
   buildSignedMessage,
   signMessage,
-  templateBuilder
+  templateBuilder,
+  buildDescriptor
 } from './builders'
 
 export {
@@ -14,5 +15,6 @@ export {
   buildRecordTemplate,
   buildSignedMessage,
   signMessage,
-  templateBuilder
+  templateBuilder,
+  buildDescriptor
 }

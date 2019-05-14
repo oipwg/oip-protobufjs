@@ -215,14 +215,20 @@ describe('protobuf.js', () => {
 
     const decoded = AwesomeMessageReflected.decode(encoded)
   })
-  it.skip('create message using an OipRef Txid property', () => {
+  it('create message using an OipRef Txid property', () => {
     const descriptorData = [
       {name: '1', type: 'string', rule: undefined},
       {name: 'friends', type: 'OipRef', rule: 'repeated'},
       {name: 'cors', type: 'enum', values: ['one', 'two'], rule: undefined}
       ]
 
-    const descriptorSetProto = buildDescriptor(descriptorData)
-    //todo; add expect tests
+    let descriptor, error
+    try {
+      descriptor = buildDescriptor(descriptorData)
+    } catch (err) {
+      error = err
+    }
+    expect(error).toBeUndefined()
+    expect(descriptor).toBeDefined()
   })
 })

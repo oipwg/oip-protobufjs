@@ -217,10 +217,10 @@ describe('protobuf.js', () => {
   })
   it('create message using an OipRef Txid property', () => {
     const descriptorData = [
-      {name: '1', type: 'string', rule: undefined},
-      {name: 'friends', type: 'OipRef', rule: 'repeated'},
-      {name: 'cors', type: 'enum', values: ['one', 'two'], rule: undefined}
-      ]
+      { name: '1', type: 'string', rule: undefined },
+      { name: 'friends', type: 'OipRef', rule: 'repeated' },
+      { name: 'cors', type: 'enum', values: ['one', 'two'], rule: undefined }
+    ]
 
     let descriptor, error
     try {
@@ -230,5 +230,42 @@ describe('protobuf.js', () => {
     }
     expect(error).toBeUndefined()
     expect(descriptor).toBeDefined()
+  })
+  it('test buildDescriptor against against individual known values', () => {
+    const descriptorData = [
+      { name: 'name', type: 'string' },
+      { name: 'wut', type: 'bool' },
+      { name: 'uint32', type: 'uint32' },
+      { name: 'name', type: 'uint64' },
+      { name: 'bday', type: 'fixed64', rule: 'repeated' },
+    ]
+    const resultData = [
+      [10, 73, 10, 24, 111, 105, 112, 80, 114, 111, 116, 111, 95, 116, 101, 109, 112, 108, 97, 116, 101, 115, 46, 112, 114, 111, 116, 111, 18, 18, 111, 105, 112, 80, 114, 111, 116, 111, 46, 116, 101, 109, 112, 108, 97, 116, 101, 115, 34, 17, 10, 1, 80, 18, 12, 10, 4, 110, 97, 109, 101, 24, 1, 32, 1, 40, 9, 98, 6, 112, 114, 111, 116, 111, 51],
+      [10, 72, 10, 24, 111, 105, 112, 80, 114, 111, 116, 111, 95, 116, 101, 109, 112, 108, 97, 116, 101, 115, 46, 112, 114, 111, 116, 111, 18, 18, 111, 105, 112, 80, 114, 111, 116, 111, 46, 116, 101, 109, 112, 108, 97, 116, 101, 115, 34, 16, 10, 1, 80, 18, 11, 10, 3, 119, 117, 116, 24, 1, 32, 1, 40, 8, 98, 6, 112, 114, 111, 116, 111, 51],
+      [10, 75, 10, 24, 111, 105, 112, 80, 114, 111, 116, 111, 95, 116, 101, 109, 112, 108, 97, 116, 101, 115, 46, 112, 114, 111, 116, 111, 18, 18, 111, 105, 112, 80, 114, 111, 116, 111, 46, 116, 101, 109, 112, 108, 97, 116, 101, 115, 34, 19, 10, 1, 80, 18, 14, 10, 6, 117, 105, 110, 116, 51, 50, 24, 1, 32, 1, 40, 13, 98, 6, 112, 114, 111, 116, 111, 51],
+      [10, 73, 10, 24, 111, 105, 112, 80, 114, 111, 116, 111, 95, 116, 101, 109, 112, 108, 97, 116, 101, 115, 46, 112, 114, 111, 116, 111, 18, 18, 111, 105, 112, 80, 114, 111, 116, 111, 46, 116, 101, 109, 112, 108, 97, 116, 101, 115, 34, 17, 10, 1, 80, 18, 12, 10, 4, 110, 97, 109, 101, 24, 1, 32, 1, 40, 4, 98, 6, 112, 114, 111, 116, 111, 51],
+      [10, 73, 10, 24, 111, 105, 112, 80, 114, 111, 116, 111, 95, 116, 101, 109, 112, 108, 97, 116, 101, 115, 46, 112, 114, 111, 116, 111, 18, 18, 111, 105, 112, 80, 114, 111, 116, 111, 46, 116, 101, 109, 112, 108, 97, 116, 101, 115, 34, 17, 10, 1, 80, 18, 12, 10, 4, 98, 100, 97, 121, 24, 1, 32, 3, 40, 6, 98, 6, 112, 114, 111, 116, 111, 51]]
+
+    for (let i in descriptorData) {
+      const descriptor = buildDescriptor([descriptorData[i]])
+      const descriptor64 = descriptor.toString('base64')
+
+      let resultBuf = Buffer.from(resultData[i])
+      const result64 = resultBuf.toString('base64')
+
+      expect(descriptor64).toEqual(result64)
+    }
+  })
+  it('test buildDescriptor against block of values', () => {
+    const values = [
+      { name: 'crystals', type: 'enum', values: ['rose', 'agate'] },
+      { name: 'date', type: 'uint64', rule: 'repeated' },
+      { name: 'game', type: 'string' }
+    ]
+
+    const descriptor = buildDescriptor(values)
+    const descriptor64 = descriptor.toString('base64')
+
+    expect(descriptor64).toEqual('CpkBChhvaXBQcm90b190ZW1wbGF0ZXMucHJvdG8SEm9pcFByb3RvLnRlbXBsYXRlcyJhCgFQEgwKBGRhdGUYAiADKAQSDAoEZ2FtZRgDIAEoCSJACghDcnlzdGFscxINCglVTkRFRklORUQQABIRCg1DcnlzdGFsc19ST1NFEAESEgoOQ3J5c3RhbHNfQUdBVEUQAmIGcHJvdG8z')
   })
 })

@@ -1,6 +1,6 @@
 {
   "name": "oip-protobufjs",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "lib/index",
   "license": "MIT",
   "scripts": {
@@ -12,6 +12,7 @@
     "bitcoinjs-message": "^2.0.0",
     "core-js": "^2.6.5",
     "js-oip": "^2.1.0",
+    "js-pascalcase": "^1.2.1",
     "protobufjs": "^6.8.8"
   },
   "devDependencies": {

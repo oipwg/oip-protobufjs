@@ -1093,6 +1093,874 @@
             return Txid;
         })();
     
+        oipProto.NormalizeRecordProto = (function() {
+    
+            /**
+             * Properties of a NormalizeRecordProto.
+             * @memberof oipProto
+             * @interface INormalizeRecordProto
+             * @property {number|Long|null} [mainTemplate] NormalizeRecordProto mainTemplate
+             * @property {Array.<oipProto.INormalField>|null} [fields] NormalizeRecordProto fields
+             */
+    
+            /**
+             * Constructs a new NormalizeRecordProto.
+             * @memberof oipProto
+             * @classdesc Represents a NormalizeRecordProto.
+             * @implements INormalizeRecordProto
+             * @constructor
+             * @param {oipProto.INormalizeRecordProto=} [properties] Properties to set
+             */
+            function NormalizeRecordProto(properties) {
+                this.fields = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * NormalizeRecordProto mainTemplate.
+             * @member {number|Long} mainTemplate
+             * @memberof oipProto.NormalizeRecordProto
+             * @instance
+             */
+            NormalizeRecordProto.prototype.mainTemplate = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+    
+            /**
+             * NormalizeRecordProto fields.
+             * @member {Array.<oipProto.INormalField>} fields
+             * @memberof oipProto.NormalizeRecordProto
+             * @instance
+             */
+            NormalizeRecordProto.prototype.fields = $util.emptyArray;
+    
+            /**
+             * Creates a new NormalizeRecordProto instance using the specified properties.
+             * @function create
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {oipProto.INormalizeRecordProto=} [properties] Properties to set
+             * @returns {oipProto.NormalizeRecordProto} NormalizeRecordProto instance
+             */
+            NormalizeRecordProto.create = function create(properties) {
+                return new NormalizeRecordProto(properties);
+            };
+    
+            /**
+             * Encodes the specified NormalizeRecordProto message. Does not implicitly {@link oipProto.NormalizeRecordProto.verify|verify} messages.
+             * @function encode
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {oipProto.INormalizeRecordProto} message NormalizeRecordProto message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalizeRecordProto.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.mainTemplate != null && message.hasOwnProperty("mainTemplate"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.mainTemplate);
+                if (message.fields != null && message.fields.length)
+                    for (var i = 0; i < message.fields.length; ++i)
+                        $root.oipProto.NormalField.encode(message.fields[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified NormalizeRecordProto message, length delimited. Does not implicitly {@link oipProto.NormalizeRecordProto.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {oipProto.INormalizeRecordProto} message NormalizeRecordProto message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalizeRecordProto.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a NormalizeRecordProto message from the specified reader or buffer.
+             * @function decode
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {oipProto.NormalizeRecordProto} NormalizeRecordProto
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalizeRecordProto.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.NormalizeRecordProto();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.mainTemplate = reader.uint64();
+                        break;
+                    case 2:
+                        if (!(message.fields && message.fields.length))
+                            message.fields = [];
+                        message.fields.push($root.oipProto.NormalField.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a NormalizeRecordProto message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {oipProto.NormalizeRecordProto} NormalizeRecordProto
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalizeRecordProto.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a NormalizeRecordProto message.
+             * @function verify
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NormalizeRecordProto.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.mainTemplate != null && message.hasOwnProperty("mainTemplate"))
+                    if (!$util.isInteger(message.mainTemplate) && !(message.mainTemplate && $util.isInteger(message.mainTemplate.low) && $util.isInteger(message.mainTemplate.high)))
+                        return "mainTemplate: integer|Long expected";
+                if (message.fields != null && message.hasOwnProperty("fields")) {
+                    if (!Array.isArray(message.fields))
+                        return "fields: array expected";
+                    for (var i = 0; i < message.fields.length; ++i) {
+                        var error = $root.oipProto.NormalField.verify(message.fields[i]);
+                        if (error)
+                            return "fields." + error;
+                    }
+                }
+                return null;
+            };
+    
+            /**
+             * Creates a NormalizeRecordProto message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {oipProto.NormalizeRecordProto} NormalizeRecordProto
+             */
+            NormalizeRecordProto.fromObject = function fromObject(object) {
+                if (object instanceof $root.oipProto.NormalizeRecordProto)
+                    return object;
+                var message = new $root.oipProto.NormalizeRecordProto();
+                if (object.mainTemplate != null)
+                    if ($util.Long)
+                        (message.mainTemplate = $util.Long.fromValue(object.mainTemplate)).unsigned = true;
+                    else if (typeof object.mainTemplate === "string")
+                        message.mainTemplate = parseInt(object.mainTemplate, 10);
+                    else if (typeof object.mainTemplate === "number")
+                        message.mainTemplate = object.mainTemplate;
+                    else if (typeof object.mainTemplate === "object")
+                        message.mainTemplate = new $util.LongBits(object.mainTemplate.low >>> 0, object.mainTemplate.high >>> 0).toNumber(true);
+                if (object.fields) {
+                    if (!Array.isArray(object.fields))
+                        throw TypeError(".oipProto.NormalizeRecordProto.fields: array expected");
+                    message.fields = [];
+                    for (var i = 0; i < object.fields.length; ++i) {
+                        if (typeof object.fields[i] !== "object")
+                            throw TypeError(".oipProto.NormalizeRecordProto.fields: object expected");
+                        message.fields[i] = $root.oipProto.NormalField.fromObject(object.fields[i]);
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a NormalizeRecordProto message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof oipProto.NormalizeRecordProto
+             * @static
+             * @param {oipProto.NormalizeRecordProto} message NormalizeRecordProto
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NormalizeRecordProto.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.fields = [];
+                if (options.defaults)
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.mainTemplate = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.mainTemplate = options.longs === String ? "0" : 0;
+                if (message.mainTemplate != null && message.hasOwnProperty("mainTemplate"))
+                    if (typeof message.mainTemplate === "number")
+                        object.mainTemplate = options.longs === String ? String(message.mainTemplate) : message.mainTemplate;
+                    else
+                        object.mainTemplate = options.longs === String ? $util.Long.prototype.toString.call(message.mainTemplate) : options.longs === Number ? new $util.LongBits(message.mainTemplate.low >>> 0, message.mainTemplate.high >>> 0).toNumber(true) : message.mainTemplate;
+                if (message.fields && message.fields.length) {
+                    object.fields = [];
+                    for (var j = 0; j < message.fields.length; ++j)
+                        object.fields[j] = $root.oipProto.NormalField.toObject(message.fields[j], options);
+                }
+                return object;
+            };
+    
+            /**
+             * Converts this NormalizeRecordProto to JSON.
+             * @function toJSON
+             * @memberof oipProto.NormalizeRecordProto
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NormalizeRecordProto.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return NormalizeRecordProto;
+        })();
+    
+        oipProto.NormalField = (function() {
+    
+            /**
+             * Properties of a NormalField.
+             * @memberof oipProto
+             * @interface INormalField
+             * @property {string|null} [name] NormalField name
+             * @property {Array.<oipProto.IField>|null} [path] NormalField path
+             */
+    
+            /**
+             * Constructs a new NormalField.
+             * @memberof oipProto
+             * @classdesc Represents a NormalField.
+             * @implements INormalField
+             * @constructor
+             * @param {oipProto.INormalField=} [properties] Properties to set
+             */
+            function NormalField(properties) {
+                this.path = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * NormalField name.
+             * @member {string} name
+             * @memberof oipProto.NormalField
+             * @instance
+             */
+            NormalField.prototype.name = "";
+    
+            /**
+             * NormalField path.
+             * @member {Array.<oipProto.IField>} path
+             * @memberof oipProto.NormalField
+             * @instance
+             */
+            NormalField.prototype.path = $util.emptyArray;
+    
+            /**
+             * Creates a new NormalField instance using the specified properties.
+             * @function create
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {oipProto.INormalField=} [properties] Properties to set
+             * @returns {oipProto.NormalField} NormalField instance
+             */
+            NormalField.create = function create(properties) {
+                return new NormalField(properties);
+            };
+    
+            /**
+             * Encodes the specified NormalField message. Does not implicitly {@link oipProto.NormalField.verify|verify} messages.
+             * @function encode
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {oipProto.INormalField} message NormalField message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalField.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.name != null && message.hasOwnProperty("name"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                if (message.path != null && message.path.length)
+                    for (var i = 0; i < message.path.length; ++i)
+                        $root.oipProto.Field.encode(message.path[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified NormalField message, length delimited. Does not implicitly {@link oipProto.NormalField.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {oipProto.INormalField} message NormalField message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            NormalField.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a NormalField message from the specified reader or buffer.
+             * @function decode
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {oipProto.NormalField} NormalField
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalField.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.NormalField();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.name = reader.string();
+                        break;
+                    case 2:
+                        if (!(message.path && message.path.length))
+                            message.path = [];
+                        message.path.push($root.oipProto.Field.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a NormalField message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {oipProto.NormalField} NormalField
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NormalField.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a NormalField message.
+             * @function verify
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NormalField.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.name != null && message.hasOwnProperty("name"))
+                    if (!$util.isString(message.name))
+                        return "name: string expected";
+                if (message.path != null && message.hasOwnProperty("path")) {
+                    if (!Array.isArray(message.path))
+                        return "path: array expected";
+                    for (var i = 0; i < message.path.length; ++i) {
+                        var error = $root.oipProto.Field.verify(message.path[i]);
+                        if (error)
+                            return "path." + error;
+                    }
+                }
+                return null;
+            };
+    
+            /**
+             * Creates a NormalField message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {oipProto.NormalField} NormalField
+             */
+            NormalField.fromObject = function fromObject(object) {
+                if (object instanceof $root.oipProto.NormalField)
+                    return object;
+                var message = new $root.oipProto.NormalField();
+                if (object.name != null)
+                    message.name = String(object.name);
+                if (object.path) {
+                    if (!Array.isArray(object.path))
+                        throw TypeError(".oipProto.NormalField.path: array expected");
+                    message.path = [];
+                    for (var i = 0; i < object.path.length; ++i) {
+                        if (typeof object.path[i] !== "object")
+                            throw TypeError(".oipProto.NormalField.path: object expected");
+                        message.path[i] = $root.oipProto.Field.fromObject(object.path[i]);
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a NormalField message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof oipProto.NormalField
+             * @static
+             * @param {oipProto.NormalField} message NormalField
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NormalField.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.path = [];
+                if (options.defaults)
+                    object.name = "";
+                if (message.name != null && message.hasOwnProperty("name"))
+                    object.name = message.name;
+                if (message.path && message.path.length) {
+                    object.path = [];
+                    for (var j = 0; j < message.path.length; ++j)
+                        object.path[j] = $root.oipProto.Field.toObject(message.path[j], options);
+                }
+                return object;
+            };
+    
+            /**
+             * Converts this NormalField to JSON.
+             * @function toJSON
+             * @memberof oipProto.NormalField
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NormalField.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return NormalField;
+        })();
+    
+        oipProto.Field = (function() {
+    
+            /**
+             * Properties of a Field.
+             * @memberof oipProto
+             * @interface IField
+             * @property {number|null} [tag] Field tag
+             * @property {oipProto.Field.Type|null} [type] Field type
+             * @property {number|Long|null} [template] Field template
+             */
+    
+            /**
+             * Constructs a new Field.
+             * @memberof oipProto
+             * @classdesc Represents a Field.
+             * @implements IField
+             * @constructor
+             * @param {oipProto.IField=} [properties] Properties to set
+             */
+            function Field(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * Field tag.
+             * @member {number} tag
+             * @memberof oipProto.Field
+             * @instance
+             */
+            Field.prototype.tag = 0;
+    
+            /**
+             * Field type.
+             * @member {oipProto.Field.Type} type
+             * @memberof oipProto.Field
+             * @instance
+             */
+            Field.prototype.type = 0;
+    
+            /**
+             * Field template.
+             * @member {number|Long} template
+             * @memberof oipProto.Field
+             * @instance
+             */
+            Field.prototype.template = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+    
+            /**
+             * Creates a new Field instance using the specified properties.
+             * @function create
+             * @memberof oipProto.Field
+             * @static
+             * @param {oipProto.IField=} [properties] Properties to set
+             * @returns {oipProto.Field} Field instance
+             */
+            Field.create = function create(properties) {
+                return new Field(properties);
+            };
+    
+            /**
+             * Encodes the specified Field message. Does not implicitly {@link oipProto.Field.verify|verify} messages.
+             * @function encode
+             * @memberof oipProto.Field
+             * @static
+             * @param {oipProto.IField} message Field message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Field.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.tag != null && message.hasOwnProperty("tag"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.tag);
+                if (message.type != null && message.hasOwnProperty("type"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
+                if (message.template != null && message.hasOwnProperty("template"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.template);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified Field message, length delimited. Does not implicitly {@link oipProto.Field.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof oipProto.Field
+             * @static
+             * @param {oipProto.IField} message Field message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Field.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a Field message from the specified reader or buffer.
+             * @function decode
+             * @memberof oipProto.Field
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {oipProto.Field} Field
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Field.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.Field();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.tag = reader.int32();
+                        break;
+                    case 2:
+                        message.type = reader.int32();
+                        break;
+                    case 3:
+                        message.template = reader.uint64();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a Field message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof oipProto.Field
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {oipProto.Field} Field
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Field.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a Field message.
+             * @function verify
+             * @memberof oipProto.Field
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Field.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.tag != null && message.hasOwnProperty("tag"))
+                    if (!$util.isInteger(message.tag))
+                        return "tag: integer expected";
+                if (message.type != null && message.hasOwnProperty("type"))
+                    switch (message.type) {
+                    default:
+                        return "type: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                        break;
+                    }
+                if (message.template != null && message.hasOwnProperty("template"))
+                    if (!$util.isInteger(message.template) && !(message.template && $util.isInteger(message.template.low) && $util.isInteger(message.template.high)))
+                        return "template: integer|Long expected";
+                return null;
+            };
+    
+            /**
+             * Creates a Field message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof oipProto.Field
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {oipProto.Field} Field
+             */
+            Field.fromObject = function fromObject(object) {
+                if (object instanceof $root.oipProto.Field)
+                    return object;
+                var message = new $root.oipProto.Field();
+                if (object.tag != null)
+                    message.tag = object.tag | 0;
+                switch (object.type) {
+                case "TYPE_ERROR":
+                case 0:
+                    message.type = 0;
+                    break;
+                case "TYPE_DOUBLE":
+                case 1:
+                    message.type = 1;
+                    break;
+                case "TYPE_FLOAT":
+                case 2:
+                    message.type = 2;
+                    break;
+                case "TYPE_INT64":
+                case 3:
+                    message.type = 3;
+                    break;
+                case "TYPE_UINT64":
+                case 4:
+                    message.type = 4;
+                    break;
+                case "TYPE_INT32":
+                case 5:
+                    message.type = 5;
+                    break;
+                case "TYPE_FIXED64":
+                case 6:
+                    message.type = 6;
+                    break;
+                case "TYPE_FIXED32":
+                case 7:
+                    message.type = 7;
+                    break;
+                case "TYPE_BOOL":
+                case 8:
+                    message.type = 8;
+                    break;
+                case "TYPE_STRING":
+                case 9:
+                    message.type = 9;
+                    break;
+                case "TYPE_GROUP":
+                case 10:
+                    message.type = 10;
+                    break;
+                case "TYPE_MESSAGE":
+                case 11:
+                    message.type = 11;
+                    break;
+                case "TYPE_BYTES":
+                case 12:
+                    message.type = 12;
+                    break;
+                case "TYPE_UINT32":
+                case 13:
+                    message.type = 13;
+                    break;
+                case "TYPE_ENUM":
+                case 14:
+                    message.type = 14;
+                    break;
+                case "TYPE_SFIXED32":
+                case 15:
+                    message.type = 15;
+                    break;
+                case "TYPE_SFIXED64":
+                case 16:
+                    message.type = 16;
+                    break;
+                case "TYPE_SINT32":
+                case 17:
+                    message.type = 17;
+                    break;
+                case "TYPE_SINT64":
+                case 18:
+                    message.type = 18;
+                    break;
+                }
+                if (object.template != null)
+                    if ($util.Long)
+                        (message.template = $util.Long.fromValue(object.template)).unsigned = true;
+                    else if (typeof object.template === "string")
+                        message.template = parseInt(object.template, 10);
+                    else if (typeof object.template === "number")
+                        message.template = object.template;
+                    else if (typeof object.template === "object")
+                        message.template = new $util.LongBits(object.template.low >>> 0, object.template.high >>> 0).toNumber(true);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a Field message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof oipProto.Field
+             * @static
+             * @param {oipProto.Field} message Field
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Field.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.tag = 0;
+                    object.type = options.enums === String ? "TYPE_ERROR" : 0;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.template = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.template = options.longs === String ? "0" : 0;
+                }
+                if (message.tag != null && message.hasOwnProperty("tag"))
+                    object.tag = message.tag;
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = options.enums === String ? $root.oipProto.Field.Type[message.type] : message.type;
+                if (message.template != null && message.hasOwnProperty("template"))
+                    if (typeof message.template === "number")
+                        object.template = options.longs === String ? String(message.template) : message.template;
+                    else
+                        object.template = options.longs === String ? $util.Long.prototype.toString.call(message.template) : options.longs === Number ? new $util.LongBits(message.template.low >>> 0, message.template.high >>> 0).toNumber(true) : message.template;
+                return object;
+            };
+    
+            /**
+             * Converts this Field to JSON.
+             * @function toJSON
+             * @memberof oipProto.Field
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Field.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Type enum.
+             * @name oipProto.Field.Type
+             * @enum {string}
+             * @property {number} TYPE_ERROR=0 TYPE_ERROR value
+             * @property {number} TYPE_DOUBLE=1 TYPE_DOUBLE value
+             * @property {number} TYPE_FLOAT=2 TYPE_FLOAT value
+             * @property {number} TYPE_INT64=3 TYPE_INT64 value
+             * @property {number} TYPE_UINT64=4 TYPE_UINT64 value
+             * @property {number} TYPE_INT32=5 TYPE_INT32 value
+             * @property {number} TYPE_FIXED64=6 TYPE_FIXED64 value
+             * @property {number} TYPE_FIXED32=7 TYPE_FIXED32 value
+             * @property {number} TYPE_BOOL=8 TYPE_BOOL value
+             * @property {number} TYPE_STRING=9 TYPE_STRING value
+             * @property {number} TYPE_GROUP=10 TYPE_GROUP value
+             * @property {number} TYPE_MESSAGE=11 TYPE_MESSAGE value
+             * @property {number} TYPE_BYTES=12 TYPE_BYTES value
+             * @property {number} TYPE_UINT32=13 TYPE_UINT32 value
+             * @property {number} TYPE_ENUM=14 TYPE_ENUM value
+             * @property {number} TYPE_SFIXED32=15 TYPE_SFIXED32 value
+             * @property {number} TYPE_SFIXED64=16 TYPE_SFIXED64 value
+             * @property {number} TYPE_SINT32=17 TYPE_SINT32 value
+             * @property {number} TYPE_SINT64=18 TYPE_SINT64 value
+             */
+            Field.Type = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "TYPE_ERROR"] = 0;
+                values[valuesById[1] = "TYPE_DOUBLE"] = 1;
+                values[valuesById[2] = "TYPE_FLOAT"] = 2;
+                values[valuesById[3] = "TYPE_INT64"] = 3;
+                values[valuesById[4] = "TYPE_UINT64"] = 4;
+                values[valuesById[5] = "TYPE_INT32"] = 5;
+                values[valuesById[6] = "TYPE_FIXED64"] = 6;
+                values[valuesById[7] = "TYPE_FIXED32"] = 7;
+                values[valuesById[8] = "TYPE_BOOL"] = 8;
+                values[valuesById[9] = "TYPE_STRING"] = 9;
+                values[valuesById[10] = "TYPE_GROUP"] = 10;
+                values[valuesById[11] = "TYPE_MESSAGE"] = 11;
+                values[valuesById[12] = "TYPE_BYTES"] = 12;
+                values[valuesById[13] = "TYPE_UINT32"] = 13;
+                values[valuesById[14] = "TYPE_ENUM"] = 14;
+                values[valuesById[15] = "TYPE_SFIXED32"] = 15;
+                values[valuesById[16] = "TYPE_SFIXED64"] = 16;
+                values[valuesById[17] = "TYPE_SINT32"] = 17;
+                values[valuesById[18] = "TYPE_SINT64"] = 18;
+                return values;
+            })();
+    
+            return Field;
+        })();
+    
         oipProto.OipFive = (function() {
     
             /**

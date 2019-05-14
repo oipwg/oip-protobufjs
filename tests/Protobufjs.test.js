@@ -1,7 +1,8 @@
 /* eslint-env jest */
-import protobuf, { Field, Message, Root, Type } from 'protobufjs'
+import protobuf, { Field, Message, Root, Type, Enum } from 'protobufjs'
 import descriptor from 'protobufjs/ext/descriptor'
 import path from 'path'
+import buildDescriptor from '../src/builders/buildDescriptor'
 
 const protoScalarValues = [
   'string', 'bool', 'bytes', 'double', 'float', 'int32',
@@ -187,5 +188,41 @@ describe('protobuf.js', () => {
     expect(err).toBeNull()
 
     // const SignedMessage = rootmodules.oipProto.SignedMessage
+  })
+  it.skip('reflection with nested message', () => {
+    const AwesomeEnum = {
+      ONE: 1,
+      TWO: 2
+    }
+
+    const AwesomeSubMessageReflected = new Type('AwesomeSubMessageReflected').add(
+      new Field('awesomeString', 1, 'string', 'required')
+    )
+
+    const AwesomeMessageReflected = new Type('AwesomeMessageReflected')
+      .add(
+        new Field('awesomeSubMessage', 1, 'AwesomeSubMessageReflected', 'required')
+      )
+      .add(new Field('awesomeEnum', 2, 'AwesomeEnum', 'required'))
+
+    AwesomeMessageReflected.add(new Enum('AwesomeEnum', AwesomeEnum)) // <--
+    AwesomeMessageReflected.add(AwesomeSubMessageReflected) // <--
+
+    const encoded = AwesomeMessageReflected.encode({
+      awesomeSubMessage: { awesomeString: 'I am an awesome string!' },
+      awesomeEnum: AwesomeEnum.TWO
+    }).finish()
+
+    const decoded = AwesomeMessageReflected.decode(encoded)
+  })
+  it.skip('create message using an OipRef Txid property', () => {
+    const descriptorData = [
+      {name: '1', type: 'string', rule: undefined},
+      {name: 'friends', type: 'OipRef', rule: 'repeated'},
+      {name: 'cors', type: 'enum', values: ['one', 'two'], rule: undefined}
+      ]
+
+    const descriptorSetProto = buildDescriptor(descriptorData)
+    //todo; add expect tests
   })
 })

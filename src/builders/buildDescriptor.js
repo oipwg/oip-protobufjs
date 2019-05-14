@@ -55,7 +55,7 @@ export default function buildDescriptor (fieldData) {
     counter += 1
   }
   let root = new protobuf.Root()
-  root.define('oip5.record.templates').add(P)
+  root.define('oipProto.templates').add(P)
   let descriptorFromRoot = root.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

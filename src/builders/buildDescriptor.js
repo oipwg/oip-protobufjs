@@ -2,6 +2,7 @@ import protobuf from 'protobufjs'
 import descriptor from 'protobufjs/ext/descriptor'
 
 import toPascalCase from 'js-pascalcase'
+import { camelCase } from 'lodash'
 
 const descriptorPackage = 'oipProto.templates'
 
@@ -10,6 +11,7 @@ const descriptorPackage = 'oipProto.templates'
  * @param {string} fieldData.name - field name
  * @param {string} fieldData.type - field type
  * @param {string} [fieldData.rule] - rule as according to proto3 standards (must be 'repeated' or `undefined`)
+ * @param {array} [fieldData.values] - **only used for enum** enum values in an array
  */
 
 /**
@@ -39,20 +41,26 @@ export default function buildDescriptor (fieldData) {
   let counter = 1
   for (let field of fieldData) {
     let index = counter
-    let lowercaseType = field.type.toLowerCase()
+
+    const name = camelCase(field.name)
+    const rule = field.rule
+    const enumValues = field.values ? serializeEnumValues(field.values, name) : undefined
+    const type = field.type
+
+    const lowercaseType = field.type.toLowerCase()
     switch (lowercaseType) {
       case ENUM:
-        P.add(new protobuf.Enum(field.name, serializeEnumValues(field.values)))
+        P.add(new protobuf.Enum(toPascalCase(name), enumValues))
         break
       case OIP_REF:
-        P.add(new protobuf.Field(field.name, index, 'Txid', field.rule))
+        P.add(new protobuf.Field(name, index, 'Txid', rule))
         if (!txidMessageAdded) {
           P.add(Txid)
           txidMessageAdded = true
         }
         break
       default:
-        P.add(new protobuf.Field(field.name, index, field.type, field.rule))
+        P.add(new protobuf.Field(name, index, type, rule))
     }
     counter += 1
   }

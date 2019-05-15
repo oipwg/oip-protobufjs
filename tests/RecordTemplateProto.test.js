@@ -24,8 +24,8 @@ const RecordTemplateProto = ProtoModules.oipProto.RecordTemplateProto
 const SignedMessage = ProtoModules.oipProto.SignedMessage
 const OipFiveProto = ProtoModules.oipProto.OipFive
 
-const wif = 'cRVa9rNx5N1YKBw8PhavegJPFCiYCfC4n8cYmdc3X1Y6TyFZGG4B'
-const p2pkh = 'ofbB67gqjgaYi45u8Qk2U3hGoCmyZcgbN4'
+const wif = 'cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq'
+const p2pkh = 'oRpmeYvjgfhkSpPWGL8eP5ePupyop3hz9j'
 const ecpair = ECPair.fromWIF(wif, network.flo_testnet)
 
 // cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq

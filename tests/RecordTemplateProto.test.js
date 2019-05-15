@@ -12,6 +12,7 @@ import {
   buildSignedMessage,
   buildOipFiveTemplate
 } from '../src'
+import buildDescriptor from '../src/builders/buildDescriptor'
 
 const { floMainnet, floTestnet } = Networks
 
@@ -152,18 +153,38 @@ describe('RecordTemplate', () => {
 
     expect(signedMessage64).toEqual('CoQBCoEBCg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8zEAEYASIib2ZiQjY3Z3FqZ2FZaTQ1dThRazJVM2hHb0NteVpjZ2JONCpBHwNyg/TsW2nDhkYfZlicrXrD29J2kgNpyKZMGP6b8GDaA9uTpSYyWK80ULVoxyDHhMSN9ogQj3jTnTQV0r9NYnw=')
   })
+  it.skip('build a template that extends another', () => {
+    const friendlyName = '1x OIP Debug'
+    const description = 'this template extends OIP Debug'
+    const values = [
+      { name: 'extraInfo', type: 'string' }
+    ]
+    const _extends = [3262498974715895300]
+    const fileDescriptor = buildDescriptor(values)
+
+    let { signedMessage64 } = templateBuilder({
+      friendlyName,
+      description,
+      DescriptorSetProto: fileDescriptor,
+      wif,
+      network: 'testnet',
+      _extends
+    })
+
+    console.log(signedMessage64)
+  })
   // it.skip('publish record test template', async () => {
   //   let signedMessage = 'CmMKBHJ5YW4SCHdoYXRldmVyIlEKTwobb2lwNV9yZWNvcmRfdGVtcGxhdGVzLnByb3RvEhVvaXA1LnJlY29yZC50ZW1wbGF0ZXMiEQoBUBIMCgR0ZXN0GAEgASgJYgZwcm90bzMQARgBIiEDCXMzHJNc8d0agySl5YBD3oVQC0NdQkwX9hS2XBLzT+EqQR8ZOJw6TrRqFuBeQO0COWkmgWcYjVcrZCC52es5TELrHArnb8ekhZfcChqh2QbezAof14vjRuILZDtIflDLZ7V6'
   //   // console.log(`p64:${signedMessage}`)
   //   const oip = new OIP(wif, 'testnet', { explorerUrl: 'https://testnet.explorer.mediciland.com/api' })
   //   const wallet = oip.wallet
   //
-  //   let res
+  //   let txid
   //   try {
-  //     res = await wallet.sendDataToChain(`p64:${signedMessage}`)
+  //     txid = await wallet.sendDataToChain(`p64:${signedMessage}`)
   //   } catch (err) {
-  //     console.error('Error sending message to blockchain', err)
+  //     console.error('Error', err)
   //   }
-  //   expect(res).toBeDefined()
+  //   console.log('Success: ', res)
   // })
 })

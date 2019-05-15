@@ -7,13 +7,13 @@ export default function buildRecordTemplate ({
   friendlyName,
   description,
   DescriptorSetProto,
-  extend
+  _extends
 }) {
   const templatePayload = {
     friendlyName,
     description,
     DescriptorSetProto,
-    extends: extend
+    extends: _extends
   }
 
   let err = RecordTemplateProto.verify(templatePayload)

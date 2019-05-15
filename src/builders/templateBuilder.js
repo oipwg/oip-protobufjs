@@ -12,7 +12,7 @@ export default function templateBuilder ({
   friendlyName,
   description,
   DescriptorSetProto,
-  extend,
+  _extends,
   wif,
   network = 'mainnet'
 }) {
@@ -40,7 +40,7 @@ export default function templateBuilder ({
     friendlyName,
     description,
     DescriptorSetProto,
-    extend
+    _extends
   })
 
   // 2 build OIP5

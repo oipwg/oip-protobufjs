@@ -166,6 +166,10 @@
               "type": "RecordProto",
               "id": 2
             },
+            "normalize": {
+              "type": "NormalizeRecordProto",
+              "id": 3
+            },
             "transfer": {
               "type": "Transfer",
               "id": 7

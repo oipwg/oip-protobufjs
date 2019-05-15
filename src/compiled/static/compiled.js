@@ -1957,6 +1957,7 @@ $root.oipProto = (function() {
          * @interface IOipFive
          * @property {oipProto.IRecordTemplateProto|null} [recordTemplate] OipFive recordTemplate
          * @property {oipProto.IRecordProto|null} [record] OipFive record
+         * @property {oipProto.INormalizeRecordProto|null} [normalize] OipFive normalize
          * @property {oipProto.ITransfer|null} [transfer] OipFive transfer
          * @property {oipProto.IDeactivate|null} [deactivate] OipFive deactivate
          * @property {oipProto.IEdit|null} [edit] OipFive edit
@@ -1992,6 +1993,14 @@ $root.oipProto = (function() {
          * @instance
          */
         OipFive.prototype.record = null;
+
+        /**
+         * OipFive normalize.
+         * @member {oipProto.INormalizeRecordProto|null|undefined} normalize
+         * @memberof oipProto.OipFive
+         * @instance
+         */
+        OipFive.prototype.normalize = null;
 
         /**
          * OipFive transfer.
@@ -2045,6 +2054,8 @@ $root.oipProto = (function() {
                 $root.oipProto.RecordTemplateProto.encode(message.recordTemplate, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             if (message.record != null && message.hasOwnProperty("record"))
                 $root.oipProto.RecordProto.encode(message.record, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.normalize != null && message.hasOwnProperty("normalize"))
+                $root.oipProto.NormalizeRecordProto.encode(message.normalize, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             if (message.transfer != null && message.hasOwnProperty("transfer"))
                 $root.oipProto.Transfer.encode(message.transfer, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
             if (message.deactivate != null && message.hasOwnProperty("deactivate"))
@@ -2090,6 +2101,9 @@ $root.oipProto = (function() {
                     break;
                 case 2:
                     message.record = $root.oipProto.RecordProto.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.normalize = $root.oipProto.NormalizeRecordProto.decode(reader, reader.uint32());
                     break;
                 case 7:
                     message.transfer = $root.oipProto.Transfer.decode(reader, reader.uint32());
@@ -2145,6 +2159,11 @@ $root.oipProto = (function() {
                 if (error)
                     return "record." + error;
             }
+            if (message.normalize != null && message.hasOwnProperty("normalize")) {
+                var error = $root.oipProto.NormalizeRecordProto.verify(message.normalize);
+                if (error)
+                    return "normalize." + error;
+            }
             if (message.transfer != null && message.hasOwnProperty("transfer")) {
                 var error = $root.oipProto.Transfer.verify(message.transfer);
                 if (error)
@@ -2185,6 +2204,11 @@ $root.oipProto = (function() {
                     throw TypeError(".oipProto.OipFive.record: object expected");
                 message.record = $root.oipProto.RecordProto.fromObject(object.record);
             }
+            if (object.normalize != null) {
+                if (typeof object.normalize !== "object")
+                    throw TypeError(".oipProto.OipFive.normalize: object expected");
+                message.normalize = $root.oipProto.NormalizeRecordProto.fromObject(object.normalize);
+            }
             if (object.transfer != null) {
                 if (typeof object.transfer !== "object")
                     throw TypeError(".oipProto.OipFive.transfer: object expected");
@@ -2219,6 +2243,7 @@ $root.oipProto = (function() {
             if (options.defaults) {
                 object.recordTemplate = null;
                 object.record = null;
+                object.normalize = null;
                 object.transfer = null;
                 object.deactivate = null;
                 object.edit = null;
@@ -2227,6 +2252,8 @@ $root.oipProto = (function() {
                 object.recordTemplate = $root.oipProto.RecordTemplateProto.toObject(message.recordTemplate, options);
             if (message.record != null && message.hasOwnProperty("record"))
                 object.record = $root.oipProto.RecordProto.toObject(message.record, options);
+            if (message.normalize != null && message.hasOwnProperty("normalize"))
+                object.normalize = $root.oipProto.NormalizeRecordProto.toObject(message.normalize, options);
             if (message.transfer != null && message.hasOwnProperty("transfer"))
                 object.transfer = $root.oipProto.Transfer.toObject(message.transfer, options);
             if (message.deactivate != null && message.hasOwnProperty("deactivate"))

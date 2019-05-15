@@ -6,10 +6,12 @@ option go_package = "oipProto";
 
 import "record.proto";
 import "recordTemplate.proto";
+import "normalizeRecordProto.proto";
 
 message OipFive {
     RecordTemplateProto recordTemplate = 1;
     RecordProto record = 2;
+    NormalizeRecordProto normalize = 3;
 
     Transfer transfer = 7;
     Deactivate deactivate = 8;

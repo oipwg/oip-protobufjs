@@ -83,6 +83,7 @@ message oipProto {
 
         optional RecordTemplateProto record_template = 1;
         optional RecordProto record = 2;
+        optional NormalizeRecordProto normalize = 3;
         optional Transfer transfer = 7;
         optional Deactivate deactivate = 8;
         optional Edit edit = 9;

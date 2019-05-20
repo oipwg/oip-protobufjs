@@ -22,7 +22,7 @@ const descriptorPackage = 'oipProto.templates'
 export default function buildDescriptor (fieldData) {
   const P = new protobuf.Type('P')
   const Txid = new protobuf.Type('Txid').add(
-    new protobuf.Field('raw', 1, 'bytes', 'required')
+    new protobuf.Field('raw', 1, 'bytes')
   )
   let txidMessageAdded = false
   const ENUM = 'enum'

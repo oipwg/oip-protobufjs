@@ -1,5 +1,6 @@
 import { util } from 'protobufjs'
 import { ProtoModules } from '../index'
+
 const SignedMessage = ProtoModules.oipProto.SignedMessage
 
 export default function buildSignedMessage ({

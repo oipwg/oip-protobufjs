@@ -3,9 +3,21 @@ import { ProtoModules } from '../index'
 
 const OipFiveProto = ProtoModules.oipProto.OipFive
 
-export default function buildOipFiveTemplate ( templateMessage ) {
+export default function buildOipFiveTemplate ({
+  recordTemplate,
+  record,
+  normalize,
+  transfer,
+  deactivate,
+  edit
+}) {
   const templatePayload = {
-    recordTemplate: templateMessage
+    recordTemplate,
+    record,
+    normalize,
+    transfer,
+    deactivate,
+    edit
   }
 
   let err = OipFiveProto.verify(templatePayload)

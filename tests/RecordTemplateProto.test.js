@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { ECPair, payments } from 'bitcoinjs-lib'
-import { Networks, OIP } from 'js-oip'
+import { ECPair } from 'bitcoinjs-lib'
+import { Networks } from 'js-oip'
 import { util as protoUtil } from 'protobufjs'
 import { verify } from 'bitcoinjs-message'
 
@@ -28,16 +28,6 @@ const OipFiveProto = ProtoModules.oipProto.OipFive
 const wif = 'cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq'
 const p2pkh = 'oRpmeYvjgfhkSpPWGL8eP5ePupyop3hz9j'
 const ecpair = ECPair.fromWIF(wif, network.flo_testnet)
-
-// cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq
-// oRpmeYvjgfhkSpPWGL8eP5ePupyop3hz9j
-
-// it.skip('make random ECPair', () => {
-//   const randomWIF = ECPair.makeRandom({ network: network.flo_testnet }).toWIF()
-//   const EC = ECPair.fromWIF(randomWIF, network.flo_testnet)
-//   const p2pkh = payments.p2pkh({ pubkey: EC.publicKey, network: network.flo_testnet }).address
-//   console.log(randomWIF, p2pkh
-// })
 
 describe('RecordTemplate', () => {
   it('build record template', () => {
@@ -73,7 +63,7 @@ describe('RecordTemplate', () => {
       DescriptorSetProto: fileDescriptor
     })
 
-    const { oip5messageBuffer, oip5message64, oip5message } = buildOipFiveTemplate(templateMessage)
+    const { oip5messageBuffer, oip5message64, oip5message } = buildOipFiveTemplate({ recordTemplate: templateMessage })
 
     let targetBuffer = new Uint8Array(132)
     expect(protoUtil.base64.decode(oip5message64, targetBuffer, 0)).toEqual(oip5messageBuffer.length)
@@ -94,7 +84,7 @@ describe('RecordTemplate', () => {
       DescriptorSetProto: fileDescriptor
     })
 
-    const { oip5message64 } = buildOipFiveTemplate(templateMessage)
+    const { oip5message64 } = buildOipFiveTemplate({ recordTemplate: templateMessage })
 
     const { signature, p2pkh: pubKeyHash } = signMessage({ message: oip5message64, ECPair: ecpair })
     expect(pubKeyHash).toEqual(p2pkh)
@@ -113,16 +103,16 @@ describe('RecordTemplate', () => {
     })
     expect(template64).toEqual('Cg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8z')
 
-    const { oip5message64, oip5messageBuffer } = buildOipFiveTemplate(templateMessage)
+    const { oip5message64, oip5messageBuffer } = buildOipFiveTemplate({ recordTemplate: templateMessage })
 
     const { signature, publicKeyAscii } = signMessage({ message: oip5message64, ECPair: ecpair })
-    expect(signature.toString('base64')).toEqual('HwNyg/TsW2nDhkYfZlicrXrD29J2kgNpyKZMGP6b8GDaA9uTpSYyWK80ULVoxyDHhMSN9ogQj3jTnTQV0r9NYnw=')
+    expect(signature.toString('base64')).toEqual('IFQVuOC/3Ae91gHcG7E3BqLT10gaQj/lB4aXvOIYuuSyJ5UjdLK73Xf/0dzYgt8cuvRrwh7vI/nllB6YCwR5wKo=')
 
     const {
       signedMessage64,
       signedMessageBuffer
     } = buildSignedMessage({ Signature: signature, PubKey: publicKeyAscii, SerializedMessage: oip5messageBuffer })
-    expect(signedMessage64).toEqual('CoQBCoEBCg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8zEAEYASIib2ZiQjY3Z3FqZ2FZaTQ1dThRazJVM2hHb0NteVpjZ2JONCpBHwNyg/TsW2nDhkYfZlicrXrD29J2kgNpyKZMGP6b8GDaA9uTpSYyWK80ULVoxyDHhMSN9ogQj3jTnTQV0r9NYnw=')
+    expect(signedMessage64).toEqual('CoQBCoEBCg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8zEAEYASIib1JwbWVZdmpnZmhrU3BQV0dMOGVQNWVQdXB5b3AzaHo5aipBIFQVuOC/3Ae91gHcG7E3BqLT10gaQj/lB4aXvOIYuuSyJ5UjdLK73Xf/0dzYgt8cuvRrwh7vI/nllB6YCwR5wKo=')
 
     const byteSize = 242
     let rawSignedMessage = new Uint8Array(byteSize)
@@ -151,7 +141,7 @@ describe('RecordTemplate', () => {
       network: 'testnet'
     })
 
-    expect(signedMessage64).toEqual('CoQBCoEBCg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8zEAEYASIib2ZiQjY3Z3FqZ2FZaTQ1dThRazJVM2hHb0NteVpjZ2JONCpBHwNyg/TsW2nDhkYfZlicrXrD29J2kgNpyKZMGP6b8GDaA9uTpSYyWK80ULVoxyDHhMSN9ogQj3jTnTQV0r9NYnw=')
+    expect(signedMessage64).toEqual('CoQBCoEBCg1UZXN0IFRlbXBsYXRlEh1kZXNjcmlwdGlvbiBmb3IgdGVzdCB0ZW1wbGF0ZSJRCk8KG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhEKAVASDAoEdGVzdBgBIAEoCWIGcHJvdG8zEAEYASIib1JwbWVZdmpnZmhrU3BQV0dMOGVQNWVQdXB5b3AzaHo5aipBIFQVuOC/3Ae91gHcG7E3BqLT10gaQj/lB4aXvOIYuuSyJ5UjdLK73Xf/0dzYgt8cuvRrwh7vI/nllB6YCwR5wKo=')
   })
   it.skip('build a template that extends another', () => {
     const friendlyName = '1x OIP Debug'
@@ -170,21 +160,6 @@ describe('RecordTemplate', () => {
       network: 'testnet',
       _extends
     })
-
-    console.log(signedMessage64)
   })
-  // it.skip('publish record test template', async () => {
-  //   let signedMessage = 'CmMKBHJ5YW4SCHdoYXRldmVyIlEKTwobb2lwNV9yZWNvcmRfdGVtcGxhdGVzLnByb3RvEhVvaXA1LnJlY29yZC50ZW1wbGF0ZXMiEQoBUBIMCgR0ZXN0GAEgASgJYgZwcm90bzMQARgBIiEDCXMzHJNc8d0agySl5YBD3oVQC0NdQkwX9hS2XBLzT+EqQR8ZOJw6TrRqFuBeQO0COWkmgWcYjVcrZCC52es5TELrHArnb8ekhZfcChqh2QbezAof14vjRuILZDtIflDLZ7V6'
-  //   // console.log(`p64:${signedMessage}`)
-  //   const oip = new OIP(wif, 'testnet', { explorerUrl: 'https://testnet.explorer.mediciland.com/api' })
-  //   const wallet = oip.wallet
-  //
-  //   let txid
-  //   try {
-  //     txid = await wallet.sendDataToChain(`p64:${signedMessage}`)
-  //   } catch (err) {
-  //     console.error('Error', err)
-  //   }
-  //   console.log('Success: ', res)
-  // })
+
 })

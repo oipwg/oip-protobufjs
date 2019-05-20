@@ -44,7 +44,7 @@ export default function templateBuilder ({
   })
 
   // 2 build OIP5
-  const { oip5messageBuffer, oip5message64 } = buildOipFiveTemplate(templateMessage)
+  const { oip5messageBuffer, oip5message64 } = buildOipFiveTemplate({recordTemplate: templateMessage})
 
   // 3 sign oip5b64 message
   const { publicKeyAscii, signature } = signMessage({ ECPair: keypair, message: oip5message64 })

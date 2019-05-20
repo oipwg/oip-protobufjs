@@ -40,7 +40,7 @@ export default function buildOipDetails (data) {
 
     let TemplateType
     if (descriptor) {
-      TemplateType = decodeDescriptor(descriptor)
+      TemplateType = decodeDescriptor(descriptor).type
     } else TemplateType = type
 
     let err = TemplateType.verify(payload)

@@ -7,7 +7,7 @@ import buildDescriptor from './buildDescriptor'
 import decodeDescriptor from './decodeDescriptor'
 import buildRecord from './buildRecord'
 import recordProtoBuilder from './recordProtoBuilder'
-
+import buildOipDetails from './buildOipDetails'
 export {
   buildSignedMessage,
   buildRecordTemplate,
@@ -17,5 +17,6 @@ export {
   buildDescriptor,
   buildRecord,
   decodeDescriptor,
-  recordProtoBuilder
+  recordProtoBuilder,
+  buildOipDetails
 }

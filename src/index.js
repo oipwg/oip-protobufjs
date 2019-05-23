@@ -5,7 +5,10 @@ import {
   buildSignedMessage,
   signMessage,
   templateBuilder,
-  buildDescriptor
+  buildDescriptor,
+  decodeDescriptor,
+  recordProtoBuilder,
+  buildOipDetails
 } from './builders'
 
 export {
@@ -16,5 +19,8 @@ export {
   buildSignedMessage,
   signMessage,
   templateBuilder,
-  buildDescriptor
+  buildDescriptor,
+  decodeDescriptor,
+  recordProtoBuilder,
+  buildOipDetails
 }

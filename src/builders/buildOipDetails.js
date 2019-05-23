@@ -11,7 +11,8 @@ const googleApis = 'type.googleapis.com/'
  * @param data
  * @param data.name - template name
  * @param data.payload - template object information (fields with assigned values)
- * @param data.descriptor - the file descriptor that defines the template being used for the payload
+ * @param [data.descriptor] - the file descriptor that defines the template being used for the payload
+ * @param [data.type] - protobuf Type class to build the messages
  * @returns {oipProto.OipDetails}
  */
 export default function buildOipDetails (data) {

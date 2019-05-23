@@ -16,10 +16,28 @@ const descriptorPackage = 'oipProto.templates'
 
 /**
  * helper function to build the descriptorSetProto filed in the recordTemplate.proto message
- * @param {Array.<fieldData>} fieldData
+ * @param {fieldData|Array.<fieldData>} fieldData
  * @returns {Uint8Array | Buffer | never | void}
  */
 export default function buildDescriptor (fieldData) {
+  if (!Array.isArray(fieldData)) {
+    fieldData = [fieldData]
+  }
+  const reg = /^[a-zA-Z]\w*$/
+
+  for (let field of fieldData) {
+      if (!reg.test(field.name)) {
+        throw Error(`invalid field name: ${field.name}. Must start with a letter and only contain letters/numbers.`)
+      }
+      if (field.values) {
+        for (let value of field.values) {
+          if (!reg.test(value)) {
+            throw Error(`invalid enum value: ${value} for enum field: ${field.name}. Must start with a letter and only contain letters/numbers.`)
+          }
+        }
+      }
+    }
+
   const P = new protobuf.Type('P')
   const Txid = new protobuf.Type('Txid').add(
     new protobuf.Field('raw', 1, 'bytes')

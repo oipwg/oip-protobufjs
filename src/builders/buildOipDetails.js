@@ -5,6 +5,15 @@ const ANY = ProtoModules.google.protobuf.Any
 const OipDetails = ProtoModules.oipProto.OipDetails
 
 const googleApis = 'type.googleapis.com/'
+function serializeNameToTypeUrl(name, path) {
+  let splitPath = path.split('.')
+  if (splitPath[0] === '') {
+    splitPath = splitPath.slice(1)
+  }
+  splitPath[splitPath.length-1] = name
+  splitPath = splitPath.join('.')
+  return `${googleApis}${splitPath}`
+}
 
 /**
  * Create OipDetails Proto message
@@ -45,13 +54,13 @@ export default function buildOipDetails (data) {
     } else TemplateType = type
 
     let err = TemplateType.verify(payload)
-    if (err) throw Error(`Failed payload verification for: ${name}`)
+    if (err) throw Error(`Failed payload verification for: ${name}: ${err}`)
 
     let message = TemplateType.create(payload)
     let buffer = TemplateType.encode(message).finish()
 
     let anyPayload = {
-      type_url: `${googleApis}${name}`,
+      type_url: serializeNameToTypeUrl(name, TemplateType.fullName),
       value: buffer
     }
     err = ANY.verify(anyPayload)

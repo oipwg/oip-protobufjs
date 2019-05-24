@@ -7,11 +7,13 @@ import {
   signMessage,
   buildSignedMessage
 } from './index'
+import buildOipDetails from './buildOipDetails'
 
 export default function recordProtoBuilder ({
   tags,
   payment,
   details,
+  detailsData,
   permissions,
   wif,
   network = 'mainnet'
@@ -25,6 +27,15 @@ export default function recordProtoBuilder ({
 
   network = network === 'mainnet' ? networks.floMainnet : networks.floTestnet
   const keypair = ECPair.fromWIF(wif, network)
+
+  // build details from param if passed
+  if (detailsData) {
+    try {
+      details = buildOipDetails(detailsData)
+    } catch (err) {
+      throw Error(err)
+    }
+  }
 
   // 1 build record message
   let { recordMessage } = buildRecord({

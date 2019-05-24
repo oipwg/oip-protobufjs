@@ -8,6 +8,8 @@ import decodeDescriptor from './decodeDescriptor'
 import buildRecord from './buildRecord'
 import recordProtoBuilder from './recordProtoBuilder'
 import buildOipDetails from './buildOipDetails'
+import buildTxids from './buildTxids'
+
 export {
   buildSignedMessage,
   buildRecordTemplate,
@@ -18,5 +20,6 @@ export {
   buildRecord,
   decodeDescriptor,
   recordProtoBuilder,
-  buildOipDetails
+  buildOipDetails,
+  buildTxids
 }

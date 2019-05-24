@@ -8,7 +8,9 @@ import {
   buildDescriptor,
   decodeDescriptor,
   recordProtoBuilder,
-  buildOipDetails
+  buildOipDetails,
+  buildTxids,
+  buildRecord
 } from './builders'
 
 export {
@@ -22,5 +24,7 @@ export {
   buildDescriptor,
   decodeDescriptor,
   recordProtoBuilder,
-  buildOipDetails
+  buildOipDetails,
+  buildTxids,
+  buildRecord
 }

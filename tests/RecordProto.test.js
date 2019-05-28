@@ -1,10 +1,8 @@
 import buildDescriptor from '../src/builders/buildDescriptor'
 import recordProtoBuilder from '../src/builders/recordProtoBuilder'
 import buildOipDetails from '../src/builders/buildOipDetails'
-import { ProtoModules } from '../src'
-
-const BasicTemplate = ProtoModules.oipProto.templates.tmpl_00000000000BA51C
-const FileTemplate = ProtoModules.oipProto.templates.tmpl_000000000000F113
+import templateBuilder from '../src/builders/templateBuilder'
+import decodeDescriptor from '../src/builders/decodeDescriptor'
 
 const wif = 'cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq'
 
@@ -52,41 +50,24 @@ describe('RecordProto', () => {
 
     console.log(signedMessage64)
   })
-  it('create record matching golang test', () => {
-    const heroName = 'tmpl_8D66C6AFF9BDD8EE'
-    const heroDescriptor = 'ClEKG29pcDVfcmVjb3JkX3RlbXBsYXRlcy5wcm90bxIVb2lwNS5yZWNvcmQudGVtcGxhdGVzIhMKAVASDgoGcG93ZXJzGAEgAygJYgZwcm90bzM='
-    const heroPayload = { powers: ['flight', 'invisibility'] }
-    const hero = { name: heroName, descriptor: heroDescriptor, payload: heroPayload }
+  it('create a record from luna template', () => {
+    const pubkey = 'ofbB67gqjgaYi45u8Qk2U3hGoCmyZcgbN4'
+    const wif = 'cRVa9rNx5N1YKBw8PhavegJPFCiYCfC4n8cYmdc3X1Y6TyFZGG4B'
 
-    const basicName = 'tmpl_00000000000BA51C'
-    const basicPayload = {
-      title: 'Sintel',
-      description: 'Sintel, a free, Creative Commons movie',
-      year: 2010
+    const descriptor = 'CogBCgdwLnByb3RvEhJvaXBQcm90by50ZW1wbGF0ZXMiJwoBUBIQCgRtYXNzGAEoA1IEbWFzcxIQCgRuYW1lGAIoCVIEbmFtZUpACgUSAwAAAAoICgEMEgMAAAAKCAoBAhIDAAAACgkKAgQAEgMAAAAKCwoEBAACABIDAAAACgsKBAQAAgESAwAAAA=='
+    const name = 'tmpl_370840EECB3C27CA'
+    const payload = {
+      name: 'Ryan Moon',
+      mass: 33
     }
-    const basic = { name: basicName, payload: basicPayload, type: BasicTemplate }
-
-    const fileName = 'tmpl_000000000000F113'
-    const filePayload = {
-      location: 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent',
-      network: 2,
-      contentType: 'video/mp4',
-      displayName: 'Sintel.mp4',
-      filePath: 'Sintel/Sintel.mp4',
-      size: 129241752,
-    }
-
-    const file = { name: fileName, payload: filePayload, type: FileTemplate }
-
-    const data = [hero, basic, file]
-    const details = buildOipDetails(data)
-    const { signedMessage, signedMessage64 } = recordProtoBuilder({
-      details,
+    // const details = buildOipDetails({descriptor, name, payload})
+    const record = recordProtoBuilder({
+      detailsData: {descriptor, name, payload},
       wif,
-      network: 'testnet'
+      network: 'testnet',
     })
+    console.log(record.signedMessage64)
 
-    console.log(signedMessage64)
   })
 })
 

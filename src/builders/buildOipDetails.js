@@ -36,11 +36,23 @@ function typeConvBool (values) {
   if (Array.isArray(values)) {
     let newArray = []
     for (let field of values) {
-      newArray.push(field === 'true')
+      if (field === 'true') {
+        newArray.push(true)
+      } else if (field === 'false') {
+        newArray.push(false)
+      } else {
+        throw new Error(`Expecting a boolean. Was given: ${value}`)
+      }
     }
     return newArray
   } else {
-    return values === 'true'
+    if (values === 'true') {
+      return true
+    } else if (values === 'false') {
+      return false
+    } else {
+      throw new Error(`Expecting a boolean. Was given: ${values}`)
+    }
   }
 }
 
@@ -48,11 +60,19 @@ function typeConvNumber (values) {
   if (Array.isArray(values)) {
     let newArray = []
     for (let field of values) {
-      newArray.push(Number(field))
+      if (isNaN(Number(field))) {
+        throw new Error(`Expecting a number. Received: ${field}`)
+      } else {
+        newArray.push(Number(field))
+      }
     }
     return newArray
   } else {
-    return Number(values)
+    if (isNaN(Number(values))) {
+      throw new Error(`Expecting a number. Received: ${values}`)
+    } else {
+      return Number(values)
+    }
   }
 }
 
@@ -70,7 +90,7 @@ function typeConvBytes (values) {
 
 /**
  * Create OipDetails Proto message
- * @param data
+ * @param {Array.isArray<Object>|Object} data
  * @param data.name - template name
  * @param data.payload - template object information (fields with assigned values)
  * @param [data.descriptor] - the file descriptor that defines the template being used for the payload
@@ -112,17 +132,34 @@ export default function buildOipDetails (data) {
       if (payload.hasOwnProperty(field)) {
         for (let f of fieldArray) {
           if (field === f.name) {
+            if (f.type === 'string') {
+              if (typeof payload[field] !== 'string') {
+                throw Error(`Expected to be passed a string for field: { ${field} } - was given: ${payload[field]}`)
+              }
+            }
             if (f.type === 'Txid') {
-              payload[field] = buildTxids(payload[field])
+              try {
+                payload[field] = buildTxids(payload[field])
+              } catch (err) {
+                throw Error(`Failed to convert field { ${field} } into txid messages: ${err}`)
+              }
             }
             if (f.type === 'bytes') {
               payload[field] = typeConvBytes(payload[field])
             }
             if (f.type === 'bool') {
-              payload[field] = typeConvBool(payload[field])
+              try {
+                payload[field] = typeConvBool(payload[field])
+              } catch (err) {
+                throw Error(`Failed to convert field { ${field} } into a bool: ${err}`)
+              }
             }
             if (protoNumberFields.includes(f.type)) {
-              payload[field] = typeConvNumber(payload[field])
+              try {
+                payload[field] = typeConvNumber(payload[field])
+              } catch (err) {
+                throw Error(`Failed to convert field: { ${field} } into a number: ${err}`)
+              }
             }
           }
         }

@@ -19,6 +19,14 @@ export default function decodeDescriptor (protoDescriptor, forWeb = false) {
   const root = protobuf.Root.fromDescriptor(decodedDescriptor)
   const type = root.lookupType('P')
 
+  // convert types in fieldsArray (takes care of everything NOT ENUMS)
+  // convert .oipProto.Txid to Txid
+  for (let field of type.fieldsArray) {
+    if (field.type === '.oipProto.Txid') {
+      field.type = formatTxidType(field.type)
+    }
+  }
+
   let webFmt
   if (forWeb) {
     webFmt = { enums: {}, fields: {}}
@@ -46,4 +54,8 @@ export default function decodeDescriptor (protoDescriptor, forWeb = false) {
     type,
     webFmt
   }
+}
+
+const formatTxidType = (typePath) => {
+  return typePath.split('.')[2] // [ '', 'oipProto', 'Txid' ]
 }

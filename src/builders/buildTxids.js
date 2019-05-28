@@ -10,10 +10,16 @@ export default function buildTxids (txids) {
   if (Array.isArray(txids)) {
     let newArray = []
     for (let txid of txids) {
+      if (txid.length !== 64) {
+        throw Error(`Txid must be 64 characters long. Was given: ${txid}`)
+      }
       newArray.push(createTxid(txid))
     }
     return newArray
   } else {
+    if (txids.length !== 64) {
+      throw Error(`Txid must be 64 characters long. Was given: ${txid}`)
+    }
     return createTxid(txids)
   }
 }

@@ -33,7 +33,7 @@ export default function recordProtoBuilder ({
     try {
       details = buildOipDetails(detailsData)
     } catch (err) {
-      throw Error(err)
+      throw Error(`Failed to build OipDetails -- ${err}`)
     }
   }
 

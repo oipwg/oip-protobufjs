@@ -7,6 +7,7 @@ import {
   signMessage,
   buildSignedMessage
 } from './index'
+import typeConvExtends from '../util/typeConvExtends'
 
 export default function templateBuilder ({
   friendlyName,
@@ -17,19 +18,24 @@ export default function templateBuilder ({
   network = 'mainnet'
 }) {
   if (!friendlyName || friendlyName === '') {
-    throw new Error(`template name must be defined; was passed: ${friendlyName}`)
+    throw new Error(`template name must be defined; was passed: ${friendlyName} \n`)
   }
   if (!description || description === '') {
-    throw new Error(`description must be defined; was passed: ${description}`)
+    throw new Error(`description must be defined; was passed: ${description} \n`)
   }
   if (!DescriptorSetProto) {
-    throw new Error(`DescriptorSetProto must be a defined Uint8Array; was passed: ${DescriptorSetProto}`)
+    throw new Error(`DescriptorSetProto must be a defined Uint8Array; was passed: ${DescriptorSetProto} \n`)
   }
   if (!wif || wif === '') {
-    throw new Error(`must pass in a defined WIF (Wallet Input Format); aka your private key; was passed: ${wif}`)
+    throw new Error(`must pass in a defined WIF (Wallet Input Format); aka your private key; was passed: ${wif} \n`)
   }
   if (!isValidWIF(wif, network)) {
-    throw new Error(`Invalid WIF: ${wif}. network: ${network}`)
+    throw new Error(`Invalid WIF: ${wif}. network: ${network} \n`)
+  }
+  try {
+    _extends = typeConvExtends(_extends)
+  } catch (err) {
+    throw new Error(`Failed to convert types in {_extend} param: \n ${err}`)
   }
 
   network = network === 'mainnet' ? networks.floMainnet : networks.floTestnet

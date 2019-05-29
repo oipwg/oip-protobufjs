@@ -42,19 +42,41 @@ export default function templateBuilder ({
   const keypair = ECPair.fromWIF(wif, network)
 
   // 1 build template message
-  let { templateMessage } = buildRecordTemplate({
-    friendlyName,
-    description,
-    DescriptorSetProto,
-    _extends
-  })
+  let templateData
+  try {
+    templateData = buildRecordTemplate({
+      friendlyName,
+      description,
+      DescriptorSetProto,
+      _extends
+    })
+  } catch (err) {
+    throw Error(`Failed to build record template in templateBuilder.js: \n ${err}`)
+  }
+  let { templateMessage } = templateData
 
   // 2 build OIP5
-  const { oip5messageBuffer, oip5message64 } = buildOipFiveTemplate({recordTemplate: templateMessage})
+  let oipFiveData
+  try {
+    oipFiveData = buildOipFiveTemplate({recordTemplate: templateMessage})
+  } catch (err) {
+    throw Error(`Failed to build OipFive proto in templateBuilder.js: \n ${err}`)
+  }
+  const { oip5messageBuffer, oip5message64 } = oipFiveData
 
   // 3 sign oip5b64 message
-  const { publicKeyAscii, signature } = signMessage({ ECPair: keypair, message: oip5message64 })
+  let signedMessageData
+  try {
+    signedMessageData = signMessage({ ECPair: keypair, message: oip5message64 })
+  } catch (err) {
+    throw Error(`Failed to sign message in templateBuilder.js: \n ${err}`)
+  }
+  const { publicKeyAscii, signature } = signedMessageData
 
   // 4 build SignedMessageProto
-  return buildSignedMessage({ SerializedMessage: oip5messageBuffer, PubKey: publicKeyAscii, Signature: signature })
+  try {
+    return buildSignedMessage({ SerializedMessage: oip5messageBuffer, PubKey: publicKeyAscii, Signature: signature })
+  } catch (err) {
+    throw Error(`Failed to build signed message in templateBuilder.js: \n ${err}`)
+  }
 }

@@ -1,11 +1,12 @@
 {
   "name": "oip-protobufjs",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "main": "lib/index",
   "license": "MIT",
   "scripts": {
     "compile:proto": "node compile.js",
-    "compile": "yarn compile:proto && npx babel src --out-dir lib --copy-files"
+    "compile": "yarn compile:proto && npx babel src --out-dir lib --copy-files",
+    "prepublish": "yarn compile"
   },
   "dependencies": {
     "bitcoinjs-lib": "^5.0.2",

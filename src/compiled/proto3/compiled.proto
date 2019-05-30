@@ -122,8 +122,10 @@ message oipProto {
         string friendly_name = 1;
         string description = 2;
         bytes Descriptor_set_proto = 4;
-        repeated sfixed64 extends = 12;
-        sfixed64 identifier = 10;
+        repeated fixed32 extends = 13;
+        fixed32 identifier = 10;
+
+        reserved 12;
     }
 
     message SignedMessage {

@@ -3580,8 +3580,8 @@ $root.oipProto = (function() {
          * @property {string|null} [friendlyName] RecordTemplateProto friendlyName
          * @property {string|null} [description] RecordTemplateProto description
          * @property {Uint8Array|null} [DescriptorSetProto] RecordTemplateProto DescriptorSetProto
-         * @property {Array.<number|Long>|null} ["extends"] RecordTemplateProto extends
-         * @property {number|Long|null} [identifier] RecordTemplateProto identifier
+         * @property {Array.<number>|null} ["extends"] RecordTemplateProto extends
+         * @property {number|null} [identifier] RecordTemplateProto identifier
          */
 
         /**
@@ -3626,7 +3626,7 @@ $root.oipProto = (function() {
 
         /**
          * RecordTemplateProto extends.
-         * @member {Array.<number|Long>} extends
+         * @member {Array.<number>} extends
          * @memberof oipProto.RecordTemplateProto
          * @instance
          */
@@ -3634,11 +3634,11 @@ $root.oipProto = (function() {
 
         /**
          * RecordTemplateProto identifier.
-         * @member {number|Long} identifier
+         * @member {number} identifier
          * @memberof oipProto.RecordTemplateProto
          * @instance
          */
-        RecordTemplateProto.prototype.identifier = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        RecordTemplateProto.prototype.identifier = 0;
 
         /**
          * Creates a new RecordTemplateProto instance using the specified properties.
@@ -3671,11 +3671,11 @@ $root.oipProto = (function() {
             if (message.DescriptorSetProto != null && message.hasOwnProperty("DescriptorSetProto"))
                 writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.DescriptorSetProto);
             if (message.identifier != null && message.hasOwnProperty("identifier"))
-                writer.uint32(/* id 10, wireType 1 =*/81).sfixed64(message.identifier);
+                writer.uint32(/* id 10, wireType 5 =*/85).fixed32(message.identifier);
             if (message["extends"] != null && message["extends"].length) {
-                writer.uint32(/* id 12, wireType 2 =*/98).fork();
+                writer.uint32(/* id 13, wireType 2 =*/106).fork();
                 for (var i = 0; i < message["extends"].length; ++i)
-                    writer.sfixed64(message["extends"][i]);
+                    writer.fixed32(message["extends"][i]);
                 writer.ldelim();
             }
             return writer;
@@ -3721,18 +3721,18 @@ $root.oipProto = (function() {
                 case 4:
                     message.DescriptorSetProto = reader.bytes();
                     break;
-                case 12:
+                case 13:
                     if (!(message["extends"] && message["extends"].length))
                         message["extends"] = [];
                     if ((tag & 7) === 2) {
                         var end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2)
-                            message["extends"].push(reader.sfixed64());
+                            message["extends"].push(reader.fixed32());
                     } else
-                        message["extends"].push(reader.sfixed64());
+                        message["extends"].push(reader.fixed32());
                     break;
                 case 10:
-                    message.identifier = reader.sfixed64();
+                    message.identifier = reader.fixed32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3782,12 +3782,12 @@ $root.oipProto = (function() {
                 if (!Array.isArray(message["extends"]))
                     return "extends: array expected";
                 for (var i = 0; i < message["extends"].length; ++i)
-                    if (!$util.isInteger(message["extends"][i]) && !(message["extends"][i] && $util.isInteger(message["extends"][i].low) && $util.isInteger(message["extends"][i].high)))
-                        return "extends: integer|Long[] expected";
+                    if (!$util.isInteger(message["extends"][i]))
+                        return "extends: integer[] expected";
             }
             if (message.identifier != null && message.hasOwnProperty("identifier"))
-                if (!$util.isInteger(message.identifier) && !(message.identifier && $util.isInteger(message.identifier.low) && $util.isInteger(message.identifier.high)))
-                    return "identifier: integer|Long expected";
+                if (!$util.isInteger(message.identifier))
+                    return "identifier: integer expected";
             return null;
         };
 
@@ -3817,24 +3817,10 @@ $root.oipProto = (function() {
                     throw TypeError(".oipProto.RecordTemplateProto.extends: array expected");
                 message["extends"] = [];
                 for (var i = 0; i < object["extends"].length; ++i)
-                    if ($util.Long)
-                        (message["extends"][i] = $util.Long.fromValue(object["extends"][i])).unsigned = false;
-                    else if (typeof object["extends"][i] === "string")
-                        message["extends"][i] = parseInt(object["extends"][i], 10);
-                    else if (typeof object["extends"][i] === "number")
-                        message["extends"][i] = object["extends"][i];
-                    else if (typeof object["extends"][i] === "object")
-                        message["extends"][i] = new $util.LongBits(object["extends"][i].low >>> 0, object["extends"][i].high >>> 0).toNumber();
+                    message["extends"][i] = object["extends"][i] >>> 0;
             }
             if (object.identifier != null)
-                if ($util.Long)
-                    (message.identifier = $util.Long.fromValue(object.identifier)).unsigned = false;
-                else if (typeof object.identifier === "string")
-                    message.identifier = parseInt(object.identifier, 10);
-                else if (typeof object.identifier === "number")
-                    message.identifier = object.identifier;
-                else if (typeof object.identifier === "object")
-                    message.identifier = new $util.LongBits(object.identifier.low >>> 0, object.identifier.high >>> 0).toNumber();
+                message.identifier = object.identifier >>> 0;
             return message;
         };
 
@@ -3863,11 +3849,7 @@ $root.oipProto = (function() {
                     if (options.bytes !== Array)
                         object.DescriptorSetProto = $util.newBuffer(object.DescriptorSetProto);
                 }
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.identifier = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.identifier = options.longs === String ? "0" : 0;
+                object.identifier = 0;
             }
             if (message.friendlyName != null && message.hasOwnProperty("friendlyName"))
                 object.friendlyName = message.friendlyName;
@@ -3876,17 +3858,11 @@ $root.oipProto = (function() {
             if (message.DescriptorSetProto != null && message.hasOwnProperty("DescriptorSetProto"))
                 object.DescriptorSetProto = options.bytes === String ? $util.base64.encode(message.DescriptorSetProto, 0, message.DescriptorSetProto.length) : options.bytes === Array ? Array.prototype.slice.call(message.DescriptorSetProto) : message.DescriptorSetProto;
             if (message.identifier != null && message.hasOwnProperty("identifier"))
-                if (typeof message.identifier === "number")
-                    object.identifier = options.longs === String ? String(message.identifier) : message.identifier;
-                else
-                    object.identifier = options.longs === String ? $util.Long.prototype.toString.call(message.identifier) : options.longs === Number ? new $util.LongBits(message.identifier.low >>> 0, message.identifier.high >>> 0).toNumber() : message.identifier;
+                object.identifier = message.identifier;
             if (message["extends"] && message["extends"].length) {
                 object["extends"] = [];
                 for (var j = 0; j < message["extends"].length; ++j)
-                    if (typeof message["extends"][j] === "number")
-                        object["extends"][j] = options.longs === String ? String(message["extends"][j]) : message["extends"][j];
-                    else
-                        object["extends"][j] = options.longs === String ? $util.Long.prototype.toString.call(message["extends"][j]) : options.longs === Number ? new $util.LongBits(message["extends"][j].low >>> 0, message["extends"][j].high >>> 0).toNumber() : message["extends"][j];
+                    object["extends"][j] = message["extends"][j];
             }
             return object;
         };

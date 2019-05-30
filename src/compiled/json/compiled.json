@@ -245,14 +245,20 @@
             },
             "extends": {
               "rule": "repeated",
-              "type": "sfixed64",
-              "id": 12
+              "type": "fixed32",
+              "id": 13
             },
             "identifier": {
-              "type": "sfixed64",
+              "type": "fixed32",
               "id": 10
             }
-          }
+          },
+          "reserved": [
+            [
+              12,
+              12
+            ]
+          ]
         },
         "SignedMessage": {
           "fields": {

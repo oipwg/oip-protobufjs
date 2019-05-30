@@ -33,24 +33,46 @@ export default function recordProtoBuilder ({
     try {
       details = buildOipDetails(detailsData)
     } catch (err) {
-      throw Error(`Failed to build OipDetails -- ${err}`)
+      throw Error(`Failed to build OipDetails in recordProtoBuilder: \n ${err}`)
     }
   }
 
   // 1 build record message
-  let { recordMessage } = buildRecord({
-    tags,
-    payment,
-    details,
-    permissions
-  })
+  let recordData
+  try {
+    recordData = buildRecord({
+      tags,
+      payment,
+      details,
+      permissions
+    })
+  } catch (err) {
+    throw Error(`Failed to build record in recordProtoBuilder: \n ${err}`)
+  }
+  let { recordMessage } = recordData
 
   // 2 build OIP5
-  const { oip5messageBuffer, oip5message64 } = buildOipFiveTemplate({ record: recordMessage })
+  let oipFiveData
+  try {
+    oipFiveData = buildOipFiveTemplate({ record: recordMessage })
+  } catch (err) {
+    throw Error(`Failed to build OipFive proto template in recordProtoBuilder: \n ${err}`)
+  }
+  const { oip5messageBuffer, oip5message64 } = oipFiveData
 
   // 3 sign oip5b64 message
-  const { publicKeyAscii, signature } = signMessage({ ECPair: keypair, message: oip5message64 })
+  let signedMessagedData
+  try {
+    signedMessagedData = signMessage({ ECPair: keypair, message: oip5message64 })
+  } catch (err) {
+    throw Error(`Failed to sign message in recordProtoBuilder: \n ${err}`)
+  }
+  const { publicKeyAscii, signature } = signedMessagedData
 
   // 4 build SignedMessageProto
-  return buildSignedMessage({ SerializedMessage: oip5messageBuffer, PubKey: publicKeyAscii, Signature: signature })
+  try {
+    return buildSignedMessage({ SerializedMessage: oip5messageBuffer, PubKey: publicKeyAscii, Signature: signature })
+  } catch (err) {
+    throw Error(`Failed to build signed message in recordProtoBuilder: \n ${err}`)
+  }
 }

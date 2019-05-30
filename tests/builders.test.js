@@ -1,9 +1,15 @@
-import { Enum } from 'protobufjs'
+import { Enum, util } from 'protobufjs'
 import decodeDescriptor from '../src/builders/decodeDescriptor'
 import buildDescriptor from '../src/builders/buildDescriptor'
 import buildTxids from '../src/builders/buildTxids'
 import buildOipDetails from '../src/builders/buildOipDetails'
 import templateBuilder from '../src/builders/templateBuilder'
+import { ProtoModules } from '../src'
+
+const SignedMessage = ProtoModules.oipProto.SignedMessage
+const OipFiveProto = ProtoModules.oipProto.OipFive
+const ANY = ProtoModules.google.protobuf.Any
+
 
 describe('Test builder/helper functions', () => {
   describe('descriptor', () => {
@@ -260,7 +266,32 @@ describe('Test builder/helper functions', () => {
       }
       for (let n of any) {
         let type_url = n.type_url
-        expect(type_url.startsWith('type.googleapis.com/oipProto.templates.'))
+        expect(type_url.startsWith('type.googleapis.com/oipProto.templates.tmpl_')).toBeTruthy()
+      }
+    })
+  })
+  describe('SignedMessage', () => {
+    it('decode signed message', () => {
+      let message = 'p64:CpcBEpQBOpEBCkMKNHR5cGUuZ29vZ2xlYXBpcy5jb20vb2lwUHJvdG8udGVtcGxhdGVzLnRtcGxfMkYyOUQ4QzASCwoDZmx5EgRlbW1hCkoKNHR5cGUuZ29vZ2xlYXBpcy5jb20vb2lwUHJvdG8udGVtcGxhdGVzLnRtcGxfNUQ4REI4NUISEgoEcnlsbxIFZWFydGgaA3JlZBABGAEiIm9ScG1lWXZqZ2Zoa1NwUFdHTDhlUDVlUHVweW9wM2h6OWoqQR8cQQI9PEBYKuv15qK4aJ1BDg+pdLnuFSRMlNKtUg1zSRv3QTPefPerz8MVTqd5o77mIh4klLFuMzeEt5j/uUiz'
+      const trimPrefix = message => {
+        let mes = message.split(':')
+        return mes[1]
+      }
+      message = trimPrefix(message)
+      let decodeArray = new Uint8Array()
+      const len = util.base64.decode(message, decodeArray, 0)
+      decodeArray = new Uint8Array(len)
+      util.base64.decode(message, decodeArray, 0)
+      const decodedSignedMessage = SignedMessage.decode(decodeArray)
+      const SerializedMessage = decodedSignedMessage.SerializedMessage
+      const decodedSerializedMessage = OipFiveProto.decode(SerializedMessage)
+      const record = decodedSerializedMessage.record
+      let details = record.details
+      details = details.details
+      for (let detail of details) {
+        expect(detail instanceof ANY)
+        expect(detail.type_url.startsWith('type.googleapis.com/oipProto.templates.tmpl_')).toBeTruthy()
+        console.log(typeof detail.value === 'object')
       }
     })
   })

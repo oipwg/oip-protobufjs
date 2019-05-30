@@ -132,11 +132,25 @@ export default function buildOipDetails (data) {
       if (payload.hasOwnProperty(field)) {
         for (let f of fieldArray) {
           if (field === f.name) {
+            // check for repeats
+            if (f.repeated && !Array.isArray(payload[field])) {
+              payload[field] = [payload[field]]
+            }
+            // check for strings
             if (f.type === 'string') {
-              if (typeof payload[field] !== 'string') {
-                throw Error(`Expected to be passed a string for field: { ${field} } - was given: ${payload[field]}`)
+              if (Array.isArray(payload[field])) {
+                for (let f of payload[field]) {
+                  if (typeof f !== 'string') {
+                    throw Error(`Expected to be passed a string for field: { ${field} } - was given: ${f}`)
+                  }
+                }
+              } else {
+                if (typeof payload[field] !== 'string') {
+                  throw Error(`Expected to be passed a string for field: { ${field} } - was given: ${payload[field]}`)
+                }
               }
             }
+            // check for Txids (OipRefs)
             if (f.type === 'Txid') {
               try {
                 payload[field] = buildTxids(payload[field])
@@ -144,9 +158,11 @@ export default function buildOipDetails (data) {
                 throw Error(`Failed to convert field { ${field} } into txid messages: ${err}`)
               }
             }
+            // check for bytes
             if (f.type === 'bytes') {
               payload[field] = typeConvBytes(payload[field])
             }
+            // check for booleans
             if (f.type === 'bool') {
               try {
                 payload[field] = typeConvBool(payload[field])
@@ -154,6 +170,7 @@ export default function buildOipDetails (data) {
                 throw Error(`Failed to convert field { ${field} } into a bool: ${err}`)
               }
             }
+            // check for all other number types
             if (protoNumberFields.includes(f.type)) {
               try {
                 payload[field] = typeConvNumber(payload[field])

@@ -215,5 +215,24 @@ describe('Test builder/helper functions', () => {
       }
       expect(details).toBeUndefined()
     })
+    it('build OipDetails convert repeated fields', () => {
+      const file_descriptor_set = 'CkAKB3AucHJvdG8iLQoBUBITCgtzdXBlclBvd2VycxgBIAMoCRITCgtsb3ZlQWZmYWlycxgCIAMoCWIGcHJvdG8z'
+      const name = 'tmpl_2F29D8C0'
+      const detailsData = {
+        descriptor: file_descriptor_set,
+        name,
+        payload: {
+          loveAffairs: ['ScarJo', 'Emma Watson'],
+          superPowers: 'awesomeness' // this should be an array but now the builder will convert
+        }
+      }
+      let details
+      try {
+        details = buildOipDetails(detailsData)
+      } catch (err) {
+        expect(err).toBeUndefined()
+      }
+      expect(details).toBeDefined()
+    })
   })
 })

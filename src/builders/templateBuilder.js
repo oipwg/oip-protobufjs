@@ -32,10 +32,12 @@ export default function templateBuilder ({
   if (!isValidWIF(wif, network)) {
     throw new Error(`Invalid WIF: ${wif}. network: ${network} \n`)
   }
-  try {
-    _extends = typeConvExtends(_extends)
-  } catch (err) {
-    throw new Error(`Failed to convert types in {_extend} param: \n ${err}`)
+  if (_extends) {
+    try {
+      _extends = typeConvExtends(_extends)
+    } catch (err) {
+      throw new Error(`Failed to convert types in {_extend} param: \n ${err}`)
+    }
   }
 
   network = network === 'mainnet' ? networks.floMainnet : networks.floTestnet

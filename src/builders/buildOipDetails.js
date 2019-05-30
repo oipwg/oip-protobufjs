@@ -7,14 +7,12 @@ const OipDetails = ProtoModules.oipProto.OipDetails
 
 const googleApis = 'type.googleapis.com/'
 
-function serializeNameToTypeUrl (name, path) {
-  let splitPath = path.split('.')
-  if (splitPath[0] === '') {
-    splitPath = splitPath.slice(1)
+function serializeNameToTypeUrl (name) {
+  if (name.startsWith('tmpl') && name.length === 13) {
+    return `${googleApis}oipProto.templates.${name}`
+  } else {
+    return `${googleApis}${name}`
   }
-  splitPath[splitPath.length - 1] = name
-  splitPath = splitPath.join('.')
-  return `${googleApis}${splitPath}`
 }
 
 const protoNumberFields = [
@@ -95,14 +93,15 @@ function typeConvBytes (values) {
  * @param data.payload - template object information (fields with assigned values)
  * @param [data.descriptor] - the file descriptor that defines the template being used for the payload
  * @param [data.type] - protobuf Type class to build the messages
- * @returns {oipProto.OipDetails}
+ * @param {boolean} [returnAny] - return an array of messages of type ANY
+ * @returns {OipDetails|Array.<ANY>}
  */
-export default function buildOipDetails (data) {
+export default function buildOipDetails (data, returnAny = false) {
   if (!Array.isArray(data)) {
     data = [data]
   }
 
-  let details = []
+  let anyDetails = []
 
   for (let item of data) {
     const {
@@ -190,21 +189,25 @@ export default function buildOipDetails (data) {
     let buffer = TemplateType.encode(message).finish()
 
     let anyPayload = {
-      type_url: serializeNameToTypeUrl(name, TemplateType.fullName),
+      type_url: serializeNameToTypeUrl(name),
       value: buffer
     }
     err = ANY.verify(anyPayload)
-    if (err) throw Error(err)
+    if (err) throw Error(`Failed payload verification attempting to build OipDetails for { ${item.name} }: \n ${err}`)
 
     const anyMessage = ANY.create(anyPayload)
 
-    details.push(anyMessage)
+    anyDetails.push(anyMessage)
   }
 
-  const OipDetailsPayload = { details }
+  if (returnAny) {
+    return anyDetails
+  }
+
+  const OipDetailsPayload = { details: anyDetails }
 
   let err = OipDetails.verify(OipDetailsPayload)
-  if (err) throw Error(`Failed to verify OipDetails payload`)
+  if (err) throw Error(`Failed to verify OipDetails payload: \n ${err}`)
 
-  return OipDetails.create({ details })
+  return OipDetails.create(OipDetailsPayload)
 }

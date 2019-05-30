@@ -234,5 +234,34 @@ describe('Test builder/helper functions', () => {
       }
       expect(details).toBeDefined()
     })
+    it('test type_url during build', () => {
+      const detailsData1 = {
+        descriptor: 'CkAKB3AucHJvdG8iLQoBUBITCgtzdXBlclBvd2VycxgBIAMoCRITCgtsb3ZlQWZmYWlycxgCIAMoCWIGcHJvdG8z',
+        name: 'tmpl_2F29D8C0',
+        payload: {
+          superPowers: ['fly', 'invis'],
+          loveAffairs: ['ScarJo', 'EmmaWatson']
+        }
+      }
+      const detailsData2 = {
+        descriptor: 'CmcKGG9pcFByb3RvX3RlbXBsYXRlcy5wcm90bxISb2lwUHJvdG8udGVtcGxhdGVzIi8KAVASDAoEbmFtZRgBIAEoCRIMCgRzb2lsGAIgASgJEg4KBmNvbG9ycxgDIAMoCWIGcHJvdG8z',
+        name: 'tmpl_5D8DB85B',
+        payload: {
+          name: 'rylo',
+          soil: 'earth',
+          colors: ['blue', 'yellow', 'red', 'pink']
+        }
+      }
+      let any
+      try {
+        any = buildOipDetails([detailsData1, detailsData2], true)
+      } catch (err) {
+        expect(err).toBeUndefined()
+      }
+      for (let n of any) {
+        let type_url = n.type_url
+        expect(type_url.startsWith('type.googleapis.com/oipProto.templates.'))
+      }
+    })
   })
 })

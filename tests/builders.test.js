@@ -168,6 +168,38 @@ describe('Test builder/helper functions', () => {
         moons: 'Txid'
       })
     })
+    it.skip('build descriptor with correct package name', () => {
+      // toDo: add expects
+      let values = [
+        {name: 'name', type: 'string'},
+        {name: 'favoriteSport', type: 'string'}
+      ]
+
+      const descriptor = buildDescriptor(values)
+      console.log(descriptor.toString('base64'))
+      const TemplateType = decodeDescriptor(descriptor).type
+      // console.log(TemplateType)
+    })
+  })
+  describe('recordTemplateBuilder', () => {
+    it.skip('build record template', () => {
+      // toDo: add expects
+      let values = [
+        {name: 'name', type: 'string'},
+        {name: 'favoriteSport', type: 'string'},
+        {name: 'favoriteFruit', type: 'string'}
+      ]
+
+      const descriptor = buildDescriptor(values)
+      let template = templateBuilder({
+        friendlyName: 'casualGuy',
+        DescriptorSetProto: descriptor,
+        description: 'nothing but a casual guy',
+        wif: 'cVeJgyPeQS2935MGpLWiPj28sowu2QxRx4vbdM5UinMwk151Epkq',
+        network: 'testnet'
+      })
+      console.log(template.signedMessage64)
+    })
   })
   describe('Txid', () => {
     it('build Txid', () => {

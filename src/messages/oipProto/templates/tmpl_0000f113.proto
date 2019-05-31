@@ -4,7 +4,7 @@ package oipProto.templates;
 
 option go_package = "github.com/oipwg/oip/proto/templates";
 
-message tmpl_000000000000F113 {
+message tmpl_0000F113 {
     // Human readable file name
     string displayName = 1;
 

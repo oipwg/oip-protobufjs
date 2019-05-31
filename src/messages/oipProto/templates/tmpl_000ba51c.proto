@@ -4,7 +4,7 @@ package oipProto.templates;
 
 option go_package = "github.com/oipwg/oip/proto/templates";
 
-message tmpl_00000000000BA51C {
+message tmpl_000BA51C {
     // Record title
     string title = 1;
 

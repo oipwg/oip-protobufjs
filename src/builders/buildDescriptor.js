@@ -3,11 +3,6 @@ import descriptor from 'protobufjs/ext/descriptor'
 
 import toPascalCase from 'js-pascalcase'
 import { camelCase } from 'lodash'
-import { ProtoModules } from '../index'
-import path from "path"
-
-const descriptorPackage = 'oipProto.templates'
-// const Txid = ProtoModules.oipProto.Txid
 
 /**
  * @typedef {Object} fieldData
@@ -43,23 +38,11 @@ export default function buildDescriptor (fieldData) {
     }
 
   let pRoot = new protobuf.Root()
-  pRoot.filename = 'p.proto'
-  pRoot.define(descriptorPackage)
+  let pNameSpace = pRoot.define('oipProto.templates')
 
   const Txid = new protobuf.Type('Txid').add(
     new protobuf.Field('raw', 1, 'bytes')
   )
-
-  // let tRoot = new protobuf.Root()
-  // tRoot.filename = 'txid.proto'
-  // tRoot.define('oipProto')
-  // tRoot.add(Txid)
-
-  // protobuf.load(path.resolve('./', 'src', 'messages', 'oipProto', 'txid.proto'))
-
-  // let descriptorSet = new protobuf.Root()
-  // descriptorSet.add(pRoot)
-  // descriptorSet.add(tRoot)
 
   const P = new protobuf.Type('P')
 
@@ -97,18 +80,17 @@ export default function buildDescriptor (fieldData) {
           pRoot.add(Txid)
           txidMessageAdded = true
         }
-        // pRoot.add(Txid)
         let field = new protobuf.Field(name, tag, 'Txid', rule)
         P.add(field)
-        // pRoot.remove(Txid)
         break
       default:
         P.add(new protobuf.Field(name, tag, type, rule))
     }
     counter += 1
   }
-
-  pRoot.add(P)
+  
+  pNameSpace.add(P)
+  pNameSpace.filename = 'p.proto'
   let descriptorFromRoot = pRoot.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

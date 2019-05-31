@@ -88,7 +88,7 @@ export default function buildDescriptor (fieldData) {
     }
     counter += 1
   }
-  
+
   pNameSpace.add(P)
   pNameSpace.filename = 'p.proto'
   let descriptorFromRoot = pRoot.toDescriptor('proto3')

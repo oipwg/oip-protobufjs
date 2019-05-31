@@ -318,7 +318,7 @@
               go_package: "github.com/oipwg/oip/proto/templates"
             },
             nested: {
-              tmpl_000000000000F113: {
+              tmpl_0000F113: {
                 fields: {
                   displayName: {
                     type: "string",
@@ -354,7 +354,7 @@
                   HTTP: 3
                 }
               },
-              tmpl_00000000000BA51C: {
+              tmpl_000BA51C: {
                 fields: {
                   title: {
                     type: "string",

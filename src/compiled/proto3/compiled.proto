@@ -158,7 +158,7 @@ message oipProto {
 
         option go_package = "github.com/oipwg/oip/proto/templates";
 
-        message tmpl_000000000000F113 {
+        message tmpl_0000F113 {
 
             string display_name = 1;
             string file_path = 2;
@@ -176,7 +176,7 @@ message oipProto {
             HTTP = 3;
         }
 
-        message tmpl_00000000000BA51C {
+        message tmpl_000BA51C {
 
             string title = 1;
             string description = 2;

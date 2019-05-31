@@ -4294,29 +4294,29 @@
              */
             var templates = {};
     
-            templates.tmpl_000000000000F113 = (function() {
+            templates.tmpl_0000F113 = (function() {
     
                 /**
-                 * Properties of a tmpl_000000000000F113.
+                 * Properties of a tmpl_0000F113.
                  * @memberof oipProto.templates
-                 * @interface Itmpl_000000000000F113
-                 * @property {string|null} [displayName] tmpl_000000000000F113 displayName
-                 * @property {string|null} [filePath] tmpl_000000000000F113 filePath
-                 * @property {number|Long|null} [size] tmpl_000000000000F113 size
-                 * @property {string|null} [contentType] tmpl_000000000000F113 contentType
-                 * @property {oipProto.templates.Network|null} [network] tmpl_000000000000F113 network
-                 * @property {string|null} [location] tmpl_000000000000F113 location
+                 * @interface Itmpl_0000F113
+                 * @property {string|null} [displayName] tmpl_0000F113 displayName
+                 * @property {string|null} [filePath] tmpl_0000F113 filePath
+                 * @property {number|Long|null} [size] tmpl_0000F113 size
+                 * @property {string|null} [contentType] tmpl_0000F113 contentType
+                 * @property {oipProto.templates.Network|null} [network] tmpl_0000F113 network
+                 * @property {string|null} [location] tmpl_0000F113 location
                  */
     
                 /**
-                 * Constructs a new tmpl_000000000000F113.
+                 * Constructs a new tmpl_0000F113.
                  * @memberof oipProto.templates
-                 * @classdesc Represents a tmpl_000000000000F113.
-                 * @implements Itmpl_000000000000F113
+                 * @classdesc Represents a tmpl_0000F113.
+                 * @implements Itmpl_0000F113
                  * @constructor
-                 * @param {oipProto.templates.Itmpl_000000000000F113=} [properties] Properties to set
+                 * @param {oipProto.templates.Itmpl_0000F113=} [properties] Properties to set
                  */
-                function tmpl_000000000000F113(properties) {
+                function tmpl_0000F113(properties) {
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -4324,75 +4324,75 @@
                 }
     
                 /**
-                 * tmpl_000000000000F113 displayName.
+                 * tmpl_0000F113 displayName.
                  * @member {string} displayName
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.displayName = "";
+                tmpl_0000F113.prototype.displayName = "";
     
                 /**
-                 * tmpl_000000000000F113 filePath.
+                 * tmpl_0000F113 filePath.
                  * @member {string} filePath
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.filePath = "";
+                tmpl_0000F113.prototype.filePath = "";
     
                 /**
-                 * tmpl_000000000000F113 size.
+                 * tmpl_0000F113 size.
                  * @member {number|Long} size
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.size = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+                tmpl_0000F113.prototype.size = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
     
                 /**
-                 * tmpl_000000000000F113 contentType.
+                 * tmpl_0000F113 contentType.
                  * @member {string} contentType
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.contentType = "";
+                tmpl_0000F113.prototype.contentType = "";
     
                 /**
-                 * tmpl_000000000000F113 network.
+                 * tmpl_0000F113 network.
                  * @member {oipProto.templates.Network} network
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.network = 0;
+                tmpl_0000F113.prototype.network = 0;
     
                 /**
-                 * tmpl_000000000000F113 location.
+                 * tmpl_0000F113 location.
                  * @member {string} location
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  */
-                tmpl_000000000000F113.prototype.location = "";
+                tmpl_0000F113.prototype.location = "";
     
                 /**
-                 * Creates a new tmpl_000000000000F113 instance using the specified properties.
+                 * Creates a new tmpl_0000F113 instance using the specified properties.
                  * @function create
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
-                 * @param {oipProto.templates.Itmpl_000000000000F113=} [properties] Properties to set
-                 * @returns {oipProto.templates.tmpl_000000000000F113} tmpl_000000000000F113 instance
+                 * @param {oipProto.templates.Itmpl_0000F113=} [properties] Properties to set
+                 * @returns {oipProto.templates.tmpl_0000F113} tmpl_0000F113 instance
                  */
-                tmpl_000000000000F113.create = function create(properties) {
-                    return new tmpl_000000000000F113(properties);
+                tmpl_0000F113.create = function create(properties) {
+                    return new tmpl_0000F113(properties);
                 };
     
                 /**
-                 * Encodes the specified tmpl_000000000000F113 message. Does not implicitly {@link oipProto.templates.tmpl_000000000000F113.verify|verify} messages.
+                 * Encodes the specified tmpl_0000F113 message. Does not implicitly {@link oipProto.templates.tmpl_0000F113.verify|verify} messages.
                  * @function encode
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
-                 * @param {oipProto.templates.Itmpl_000000000000F113} message tmpl_000000000000F113 message or plain object to encode
+                 * @param {oipProto.templates.Itmpl_0000F113} message tmpl_0000F113 message or plain object to encode
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                tmpl_000000000000F113.encode = function encode(message, writer) {
+                tmpl_0000F113.encode = function encode(message, writer) {
                     if (!writer)
                         writer = $Writer.create();
                     if (message.displayName != null && message.hasOwnProperty("displayName"))
@@ -4411,33 +4411,33 @@
                 };
     
                 /**
-                 * Encodes the specified tmpl_000000000000F113 message, length delimited. Does not implicitly {@link oipProto.templates.tmpl_000000000000F113.verify|verify} messages.
+                 * Encodes the specified tmpl_0000F113 message, length delimited. Does not implicitly {@link oipProto.templates.tmpl_0000F113.verify|verify} messages.
                  * @function encodeDelimited
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
-                 * @param {oipProto.templates.Itmpl_000000000000F113} message tmpl_000000000000F113 message or plain object to encode
+                 * @param {oipProto.templates.Itmpl_0000F113} message tmpl_0000F113 message or plain object to encode
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                tmpl_000000000000F113.encodeDelimited = function encodeDelimited(message, writer) {
+                tmpl_0000F113.encodeDelimited = function encodeDelimited(message, writer) {
                     return this.encode(message, writer).ldelim();
                 };
     
                 /**
-                 * Decodes a tmpl_000000000000F113 message from the specified reader or buffer.
+                 * Decodes a tmpl_0000F113 message from the specified reader or buffer.
                  * @function decode
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
                  * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                  * @param {number} [length] Message length if known beforehand
-                 * @returns {oipProto.templates.tmpl_000000000000F113} tmpl_000000000000F113
+                 * @returns {oipProto.templates.tmpl_0000F113} tmpl_0000F113
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                tmpl_000000000000F113.decode = function decode(reader, length) {
+                tmpl_0000F113.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.templates.tmpl_000000000000F113();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.templates.tmpl_0000F113();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
@@ -4468,30 +4468,30 @@
                 };
     
                 /**
-                 * Decodes a tmpl_000000000000F113 message from the specified reader or buffer, length delimited.
+                 * Decodes a tmpl_0000F113 message from the specified reader or buffer, length delimited.
                  * @function decodeDelimited
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
                  * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {oipProto.templates.tmpl_000000000000F113} tmpl_000000000000F113
+                 * @returns {oipProto.templates.tmpl_0000F113} tmpl_0000F113
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                tmpl_000000000000F113.decodeDelimited = function decodeDelimited(reader) {
+                tmpl_0000F113.decodeDelimited = function decodeDelimited(reader) {
                     if (!(reader instanceof $Reader))
                         reader = new $Reader(reader);
                     return this.decode(reader, reader.uint32());
                 };
     
                 /**
-                 * Verifies a tmpl_000000000000F113 message.
+                 * Verifies a tmpl_0000F113 message.
                  * @function verify
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
                  * @param {Object.<string,*>} message Plain object to verify
                  * @returns {string|null} `null` if valid, otherwise the reason why it is not
                  */
-                tmpl_000000000000F113.verify = function verify(message) {
+                tmpl_0000F113.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.displayName != null && message.hasOwnProperty("displayName"))
@@ -4523,17 +4523,17 @@
                 };
     
                 /**
-                 * Creates a tmpl_000000000000F113 message from a plain object. Also converts values to their respective internal types.
+                 * Creates a tmpl_0000F113 message from a plain object. Also converts values to their respective internal types.
                  * @function fromObject
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
                  * @param {Object.<string,*>} object Plain object
-                 * @returns {oipProto.templates.tmpl_000000000000F113} tmpl_000000000000F113
+                 * @returns {oipProto.templates.tmpl_0000F113} tmpl_0000F113
                  */
-                tmpl_000000000000F113.fromObject = function fromObject(object) {
-                    if (object instanceof $root.oipProto.templates.tmpl_000000000000F113)
+                tmpl_0000F113.fromObject = function fromObject(object) {
+                    if (object instanceof $root.oipProto.templates.tmpl_0000F113)
                         return object;
-                    var message = new $root.oipProto.templates.tmpl_000000000000F113();
+                    var message = new $root.oipProto.templates.tmpl_0000F113();
                     if (object.displayName != null)
                         message.displayName = String(object.displayName);
                     if (object.filePath != null)
@@ -4573,15 +4573,15 @@
                 };
     
                 /**
-                 * Creates a plain object from a tmpl_000000000000F113 message. Also converts values to other types if specified.
+                 * Creates a plain object from a tmpl_0000F113 message. Also converts values to other types if specified.
                  * @function toObject
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @static
-                 * @param {oipProto.templates.tmpl_000000000000F113} message tmpl_000000000000F113
+                 * @param {oipProto.templates.tmpl_0000F113} message tmpl_0000F113
                  * @param {$protobuf.IConversionOptions} [options] Conversion options
                  * @returns {Object.<string,*>} Plain object
                  */
-                tmpl_000000000000F113.toObject = function toObject(message, options) {
+                tmpl_0000F113.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
                     var object = {};
@@ -4616,17 +4616,17 @@
                 };
     
                 /**
-                 * Converts this tmpl_000000000000F113 to JSON.
+                 * Converts this tmpl_0000F113 to JSON.
                  * @function toJSON
-                 * @memberof oipProto.templates.tmpl_000000000000F113
+                 * @memberof oipProto.templates.tmpl_0000F113
                  * @instance
                  * @returns {Object.<string,*>} JSON object
                  */
-                tmpl_000000000000F113.prototype.toJSON = function toJSON() {
+                tmpl_0000F113.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
     
-                return tmpl_000000000000F113;
+                return tmpl_0000F113;
             })();
     
             /**
@@ -4647,26 +4647,26 @@
                 return values;
             })();
     
-            templates.tmpl_00000000000BA51C = (function() {
+            templates.tmpl_000BA51C = (function() {
     
                 /**
-                 * Properties of a tmpl_00000000000BA51C.
+                 * Properties of a tmpl_000BA51C.
                  * @memberof oipProto.templates
-                 * @interface Itmpl_00000000000BA51C
-                 * @property {string|null} [title] tmpl_00000000000BA51C title
-                 * @property {string|null} [description] tmpl_00000000000BA51C description
-                 * @property {number|Long|null} [year] tmpl_00000000000BA51C year
+                 * @interface Itmpl_000BA51C
+                 * @property {string|null} [title] tmpl_000BA51C title
+                 * @property {string|null} [description] tmpl_000BA51C description
+                 * @property {number|Long|null} [year] tmpl_000BA51C year
                  */
     
                 /**
-                 * Constructs a new tmpl_00000000000BA51C.
+                 * Constructs a new tmpl_000BA51C.
                  * @memberof oipProto.templates
-                 * @classdesc Represents a tmpl_00000000000BA51C.
-                 * @implements Itmpl_00000000000BA51C
+                 * @classdesc Represents a tmpl_000BA51C.
+                 * @implements Itmpl_000BA51C
                  * @constructor
-                 * @param {oipProto.templates.Itmpl_00000000000BA51C=} [properties] Properties to set
+                 * @param {oipProto.templates.Itmpl_000BA51C=} [properties] Properties to set
                  */
-                function tmpl_00000000000BA51C(properties) {
+                function tmpl_000BA51C(properties) {
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -4674,51 +4674,51 @@
                 }
     
                 /**
-                 * tmpl_00000000000BA51C title.
+                 * tmpl_000BA51C title.
                  * @member {string} title
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @instance
                  */
-                tmpl_00000000000BA51C.prototype.title = "";
+                tmpl_000BA51C.prototype.title = "";
     
                 /**
-                 * tmpl_00000000000BA51C description.
+                 * tmpl_000BA51C description.
                  * @member {string} description
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @instance
                  */
-                tmpl_00000000000BA51C.prototype.description = "";
+                tmpl_000BA51C.prototype.description = "";
     
                 /**
-                 * tmpl_00000000000BA51C year.
+                 * tmpl_000BA51C year.
                  * @member {number|Long} year
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @instance
                  */
-                tmpl_00000000000BA51C.prototype.year = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                tmpl_000BA51C.prototype.year = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
     
                 /**
-                 * Creates a new tmpl_00000000000BA51C instance using the specified properties.
+                 * Creates a new tmpl_000BA51C instance using the specified properties.
                  * @function create
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
-                 * @param {oipProto.templates.Itmpl_00000000000BA51C=} [properties] Properties to set
-                 * @returns {oipProto.templates.tmpl_00000000000BA51C} tmpl_00000000000BA51C instance
+                 * @param {oipProto.templates.Itmpl_000BA51C=} [properties] Properties to set
+                 * @returns {oipProto.templates.tmpl_000BA51C} tmpl_000BA51C instance
                  */
-                tmpl_00000000000BA51C.create = function create(properties) {
-                    return new tmpl_00000000000BA51C(properties);
+                tmpl_000BA51C.create = function create(properties) {
+                    return new tmpl_000BA51C(properties);
                 };
     
                 /**
-                 * Encodes the specified tmpl_00000000000BA51C message. Does not implicitly {@link oipProto.templates.tmpl_00000000000BA51C.verify|verify} messages.
+                 * Encodes the specified tmpl_000BA51C message. Does not implicitly {@link oipProto.templates.tmpl_000BA51C.verify|verify} messages.
                  * @function encode
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
-                 * @param {oipProto.templates.Itmpl_00000000000BA51C} message tmpl_00000000000BA51C message or plain object to encode
+                 * @param {oipProto.templates.Itmpl_000BA51C} message tmpl_000BA51C message or plain object to encode
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                tmpl_00000000000BA51C.encode = function encode(message, writer) {
+                tmpl_000BA51C.encode = function encode(message, writer) {
                     if (!writer)
                         writer = $Writer.create();
                     if (message.title != null && message.hasOwnProperty("title"))
@@ -4731,33 +4731,33 @@
                 };
     
                 /**
-                 * Encodes the specified tmpl_00000000000BA51C message, length delimited. Does not implicitly {@link oipProto.templates.tmpl_00000000000BA51C.verify|verify} messages.
+                 * Encodes the specified tmpl_000BA51C message, length delimited. Does not implicitly {@link oipProto.templates.tmpl_000BA51C.verify|verify} messages.
                  * @function encodeDelimited
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
-                 * @param {oipProto.templates.Itmpl_00000000000BA51C} message tmpl_00000000000BA51C message or plain object to encode
+                 * @param {oipProto.templates.Itmpl_000BA51C} message tmpl_000BA51C message or plain object to encode
                  * @param {$protobuf.Writer} [writer] Writer to encode to
                  * @returns {$protobuf.Writer} Writer
                  */
-                tmpl_00000000000BA51C.encodeDelimited = function encodeDelimited(message, writer) {
+                tmpl_000BA51C.encodeDelimited = function encodeDelimited(message, writer) {
                     return this.encode(message, writer).ldelim();
                 };
     
                 /**
-                 * Decodes a tmpl_00000000000BA51C message from the specified reader or buffer.
+                 * Decodes a tmpl_000BA51C message from the specified reader or buffer.
                  * @function decode
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
                  * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                  * @param {number} [length] Message length if known beforehand
-                 * @returns {oipProto.templates.tmpl_00000000000BA51C} tmpl_00000000000BA51C
+                 * @returns {oipProto.templates.tmpl_000BA51C} tmpl_000BA51C
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                tmpl_00000000000BA51C.decode = function decode(reader, length) {
+                tmpl_000BA51C.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.templates.tmpl_00000000000BA51C();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.templates.tmpl_000BA51C();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
@@ -4779,30 +4779,30 @@
                 };
     
                 /**
-                 * Decodes a tmpl_00000000000BA51C message from the specified reader or buffer, length delimited.
+                 * Decodes a tmpl_000BA51C message from the specified reader or buffer, length delimited.
                  * @function decodeDelimited
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
                  * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {oipProto.templates.tmpl_00000000000BA51C} tmpl_00000000000BA51C
+                 * @returns {oipProto.templates.tmpl_000BA51C} tmpl_000BA51C
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                tmpl_00000000000BA51C.decodeDelimited = function decodeDelimited(reader) {
+                tmpl_000BA51C.decodeDelimited = function decodeDelimited(reader) {
                     if (!(reader instanceof $Reader))
                         reader = new $Reader(reader);
                     return this.decode(reader, reader.uint32());
                 };
     
                 /**
-                 * Verifies a tmpl_00000000000BA51C message.
+                 * Verifies a tmpl_000BA51C message.
                  * @function verify
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
                  * @param {Object.<string,*>} message Plain object to verify
                  * @returns {string|null} `null` if valid, otherwise the reason why it is not
                  */
-                tmpl_00000000000BA51C.verify = function verify(message) {
+                tmpl_000BA51C.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.title != null && message.hasOwnProperty("title"))
@@ -4818,17 +4818,17 @@
                 };
     
                 /**
-                 * Creates a tmpl_00000000000BA51C message from a plain object. Also converts values to their respective internal types.
+                 * Creates a tmpl_000BA51C message from a plain object. Also converts values to their respective internal types.
                  * @function fromObject
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
                  * @param {Object.<string,*>} object Plain object
-                 * @returns {oipProto.templates.tmpl_00000000000BA51C} tmpl_00000000000BA51C
+                 * @returns {oipProto.templates.tmpl_000BA51C} tmpl_000BA51C
                  */
-                tmpl_00000000000BA51C.fromObject = function fromObject(object) {
-                    if (object instanceof $root.oipProto.templates.tmpl_00000000000BA51C)
+                tmpl_000BA51C.fromObject = function fromObject(object) {
+                    if (object instanceof $root.oipProto.templates.tmpl_000BA51C)
                         return object;
-                    var message = new $root.oipProto.templates.tmpl_00000000000BA51C();
+                    var message = new $root.oipProto.templates.tmpl_000BA51C();
                     if (object.title != null)
                         message.title = String(object.title);
                     if (object.description != null)
@@ -4846,15 +4846,15 @@
                 };
     
                 /**
-                 * Creates a plain object from a tmpl_00000000000BA51C message. Also converts values to other types if specified.
+                 * Creates a plain object from a tmpl_000BA51C message. Also converts values to other types if specified.
                  * @function toObject
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @static
-                 * @param {oipProto.templates.tmpl_00000000000BA51C} message tmpl_00000000000BA51C
+                 * @param {oipProto.templates.tmpl_000BA51C} message tmpl_000BA51C
                  * @param {$protobuf.IConversionOptions} [options] Conversion options
                  * @returns {Object.<string,*>} Plain object
                  */
-                tmpl_00000000000BA51C.toObject = function toObject(message, options) {
+                tmpl_000BA51C.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
                     var object = {};
@@ -4880,17 +4880,17 @@
                 };
     
                 /**
-                 * Converts this tmpl_00000000000BA51C to JSON.
+                 * Converts this tmpl_000BA51C to JSON.
                  * @function toJSON
-                 * @memberof oipProto.templates.tmpl_00000000000BA51C
+                 * @memberof oipProto.templates.tmpl_000BA51C
                  * @instance
                  * @returns {Object.<string,*>} JSON object
                  */
-                tmpl_00000000000BA51C.prototype.toJSON = function toJSON() {
+                tmpl_000BA51C.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
     
-                return tmpl_00000000000BA51C;
+                return tmpl_000BA51C;
             })();
     
             return templates;

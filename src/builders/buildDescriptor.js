@@ -38,7 +38,8 @@ export default function buildDescriptor (fieldData) {
     }
 
   let pRoot = new protobuf.Root()
-  let pNameSpace = pRoot.define('oipProto.templates')
+  let oipProtoNameSpace = pRoot.define('oipProto')
+  let tmplNameSpace = oipProtoNameSpace.define('templates')
 
   const Txid = new protobuf.Type('Txid').add(
     new protobuf.Field('raw', 1, 'bytes')
@@ -77,7 +78,7 @@ export default function buildDescriptor (fieldData) {
         break
       case OIP_REF:
         if (!txidMessageAdded) {
-          pRoot.add(Txid)
+          P.add(Txid)
           txidMessageAdded = true
         }
         let field = new protobuf.Field(name, tag, 'Txid', rule)
@@ -89,8 +90,8 @@ export default function buildDescriptor (fieldData) {
     counter += 1
   }
 
-  pNameSpace.add(P)
-  pNameSpace.filename = 'p.proto'
+  tmplNameSpace.add(P)
+  tmplNameSpace.filename = 'p.proto'
   let descriptorFromRoot = pRoot.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

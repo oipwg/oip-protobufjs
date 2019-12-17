@@ -14,7 +14,7 @@
     "core-js": "^2.6.5",
     "js-oip": "^2.3.0",
     "js-pascalcase": "^1.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "protobufjs": "^6.8.8"
   },
   "devDependencies": {

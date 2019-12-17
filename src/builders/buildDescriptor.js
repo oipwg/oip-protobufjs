@@ -18,24 +18,24 @@ import { camelCase } from 'lodash'
  * @param {fieldData|Array.<fieldData>} fieldData
  * @returns {Uint8Array | Buffer | never | void}
  */
-export default function buildDescriptor (fieldData) {
+export default function buildDescriptor(fieldData) {
   if (!Array.isArray(fieldData)) {
     fieldData = [fieldData]
   }
   const reg = /^[a-zA-Z]\w*$/
 
   for (let field of fieldData) {
-      if (!reg.test(field.name)) {
-        throw Error(`invalid field name: ${field.name}. Must start with a letter and only contain letters/numbers.`)
-      }
-      if (field.values) {
-        for (let value of field.values) {
-          if (!reg.test(value)) {
-            throw Error(`invalid enum value: ${value} for enum field: ${field.name}. Must start with a letter and only contain letters/numbers.`)
-          }
+    if (!reg.test(field.name)) {
+      throw Error(`invalid field name: ${field.name}. Must start with a letter and only contain letters/numbers.`)
+    }
+    if (field.values) {
+      for (let value of field.values) {
+        if (!reg.test(value)) {
+          throw Error(`invalid enum value: ${value} for enum field: ${field.name}. Must start with a letter and only contain letters/numbers.`)
         }
       }
     }
+  }
 
   let pRoot = new protobuf.Root()
   let oipProtoNameSpace = pRoot.define('oipProto')
@@ -51,7 +51,7 @@ export default function buildDescriptor (fieldData) {
   const ENUM = 'enum'
   const OIP_REF = 'oipref'
 
-  function serializeEnumValues (values, name) {
+  function serializeEnumValues(values, name) {
     name = toPascalCase(name)
     let enumValues = {}
     enumValues['UNDEFINED'] = 0 // set default value
@@ -74,7 +74,9 @@ export default function buildDescriptor (fieldData) {
     const tag = field.index || index
     switch (lowercaseType) {
       case ENUM:
-        P.add(new protobuf.Enum(toPascalCase(name), enumValues))
+        let pascalName = toPascalCase(name)
+        P.add(new protobuf.Enum(pascalName, enumValues))
+        P.add(new _protobufjs.default.Field(name, tag, pascalName, rule));
         break
       case OIP_REF:
         if (!txidMessageAdded) {

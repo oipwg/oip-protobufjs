@@ -128,6 +128,18 @@ message oipProto {
         reserved 12;
     }
 
+    message PubKey {
+
+        NetworkTypes network = 1;
+        bytes raw = 2;
+    }
+
+    enum NetworkTypes {
+
+        InvalidNetwork = 0;
+        Flo = 1;
+    }
+
     message SignedMessage {
 
         bytes Serialized_message = 1;

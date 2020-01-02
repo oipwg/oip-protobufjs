@@ -3881,6 +3881,252 @@ $root.oipProto = (function() {
         return RecordTemplateProto;
     })();
 
+    oipProto.PubKey = (function() {
+
+        /**
+         * Properties of a PubKey.
+         * @memberof oipProto
+         * @interface IPubKey
+         * @property {oipProto.NetworkTypes|null} [network] PubKey network
+         * @property {Uint8Array|null} [raw] PubKey raw
+         */
+
+        /**
+         * Constructs a new PubKey.
+         * @memberof oipProto
+         * @classdesc Represents a PubKey.
+         * @implements IPubKey
+         * @constructor
+         * @param {oipProto.IPubKey=} [properties] Properties to set
+         */
+        function PubKey(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PubKey network.
+         * @member {oipProto.NetworkTypes} network
+         * @memberof oipProto.PubKey
+         * @instance
+         */
+        PubKey.prototype.network = 0;
+
+        /**
+         * PubKey raw.
+         * @member {Uint8Array} raw
+         * @memberof oipProto.PubKey
+         * @instance
+         */
+        PubKey.prototype.raw = $util.newBuffer([]);
+
+        /**
+         * Creates a new PubKey instance using the specified properties.
+         * @function create
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {oipProto.IPubKey=} [properties] Properties to set
+         * @returns {oipProto.PubKey} PubKey instance
+         */
+        PubKey.create = function create(properties) {
+            return new PubKey(properties);
+        };
+
+        /**
+         * Encodes the specified PubKey message. Does not implicitly {@link oipProto.PubKey.verify|verify} messages.
+         * @function encode
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {oipProto.IPubKey} message PubKey message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PubKey.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.network != null && message.hasOwnProperty("network"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.network);
+            if (message.raw != null && message.hasOwnProperty("raw"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.raw);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PubKey message, length delimited. Does not implicitly {@link oipProto.PubKey.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {oipProto.IPubKey} message PubKey message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PubKey.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PubKey message from the specified reader or buffer.
+         * @function decode
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {oipProto.PubKey} PubKey
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PubKey.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.oipProto.PubKey();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.network = reader.int32();
+                    break;
+                case 2:
+                    message.raw = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PubKey message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {oipProto.PubKey} PubKey
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PubKey.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PubKey message.
+         * @function verify
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PubKey.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.network != null && message.hasOwnProperty("network"))
+                switch (message.network) {
+                default:
+                    return "network: enum value expected";
+                case 0:
+                case 1:
+                    break;
+                }
+            if (message.raw != null && message.hasOwnProperty("raw"))
+                if (!(message.raw && typeof message.raw.length === "number" || $util.isString(message.raw)))
+                    return "raw: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a PubKey message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {oipProto.PubKey} PubKey
+         */
+        PubKey.fromObject = function fromObject(object) {
+            if (object instanceof $root.oipProto.PubKey)
+                return object;
+            var message = new $root.oipProto.PubKey();
+            switch (object.network) {
+            case "InvalidNetwork":
+            case 0:
+                message.network = 0;
+                break;
+            case "Flo":
+            case 1:
+                message.network = 1;
+                break;
+            }
+            if (object.raw != null)
+                if (typeof object.raw === "string")
+                    $util.base64.decode(object.raw, message.raw = $util.newBuffer($util.base64.length(object.raw)), 0);
+                else if (object.raw.length)
+                    message.raw = object.raw;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PubKey message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof oipProto.PubKey
+         * @static
+         * @param {oipProto.PubKey} message PubKey
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PubKey.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.network = options.enums === String ? "InvalidNetwork" : 0;
+                if (options.bytes === String)
+                    object.raw = "";
+                else {
+                    object.raw = [];
+                    if (options.bytes !== Array)
+                        object.raw = $util.newBuffer(object.raw);
+                }
+            }
+            if (message.network != null && message.hasOwnProperty("network"))
+                object.network = options.enums === String ? $root.oipProto.NetworkTypes[message.network] : message.network;
+            if (message.raw != null && message.hasOwnProperty("raw"))
+                object.raw = options.bytes === String ? $util.base64.encode(message.raw, 0, message.raw.length) : options.bytes === Array ? Array.prototype.slice.call(message.raw) : message.raw;
+            return object;
+        };
+
+        /**
+         * Converts this PubKey to JSON.
+         * @function toJSON
+         * @memberof oipProto.PubKey
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PubKey.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return PubKey;
+    })();
+
+    /**
+     * NetworkTypes enum.
+     * @name oipProto.NetworkTypes
+     * @enum {string}
+     * @property {number} InvalidNetwork=0 InvalidNetwork value
+     * @property {number} Flo=1 Flo value
+     */
+    oipProto.NetworkTypes = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "InvalidNetwork"] = 0;
+        values[valuesById[1] = "Flo"] = 1;
+        return values;
+    })();
+
     oipProto.SignedMessage = (function() {
 
         /**

@@ -54,7 +54,7 @@ export default function buildDescriptor(fieldData) {
   function serializeEnumValues(values, name) {
     name = toPascalCase(name)
     let enumValues = {}
-    enumValues[`${name}_undefined`] = 0 // set default value
+    enumValues[`${name}_Undefined`] = 0 // set default value
     for (let index in values) {
       enumValues[`${name}_${values[index].toUpperCase()}`] = (Number(index) + 1)
     }

@@ -7,7 +7,7 @@ const OipDetails = ProtoModules.oipProto.OipDetails
 
 const googleApis = 'type.googleapis.com/'
 
-function serializeNameToTypeUrl (name) {
+function serializeNameToTypeUrl(name) {
   if (name.startsWith('tmpl') && name.length === 13) {
     return `${googleApis}oipProto.templates.${name}`
   } else {
@@ -30,7 +30,9 @@ const protoNumberFields = [
   'sfixed64'
 ]
 
-function typeConvBool (values) {
+function typeConvBool(values) {
+
+
   if (Array.isArray(values)) {
     let newArray = []
     for (let field of values) {
@@ -54,7 +56,7 @@ function typeConvBool (values) {
   }
 }
 
-function typeConvNumber (values) {
+function typeConvNumber(values) {
   if (Array.isArray(values)) {
     let newArray = []
     for (let field of values) {
@@ -74,7 +76,7 @@ function typeConvNumber (values) {
   }
 }
 
-function typeConvBytes (values) {
+function typeConvBytes(values) {
   if (Array.isArray(values)) {
     let newArray = []
     for (let field of values) {
@@ -96,7 +98,7 @@ function typeConvBytes (values) {
  * @param {boolean} [returnAny] - return an array of messages of type ANY
  * @returns {OipDetails|Array.<ANY>}
  */
-export default function buildOipDetails (data, returnAny = false) {
+export default function buildOipDetails(data, returnAny = false) {
   if (!Array.isArray(data)) {
     data = [data]
   }

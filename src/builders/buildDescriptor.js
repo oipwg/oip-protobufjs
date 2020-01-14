@@ -38,14 +38,15 @@ export default function buildDescriptor(fieldData) {
   }
 
   let pRoot = new protobuf.Root()
-  let oipProtoNameSpace = pRoot.define('oipProto')
-  let tmplNameSpace = oipProtoNameSpace.define('templates')
+  let tmplNameSpace = pRoot.define('oipProto.templates')
+  tmplNameSpace.filename = 'p.proto'
 
   const Txid = new protobuf.Type('Txid').add(
     new protobuf.Field('raw', 1, 'bytes')
   )
 
   const P = new protobuf.Type('P')
+  tmplNameSpace.add(P)
 
   let txidMessageAdded = false
   const ENUM = 'enum'
@@ -54,7 +55,7 @@ export default function buildDescriptor(fieldData) {
   function serializeEnumValues(values, name) {
     name = toPascalCase(name)
     let enumValues = {}
-    enumValues[`${name}_Undefined`] = 0 // set default value
+    enumValues[`${name}_UNDEFINED`] = 0 // set default value
     for (let index in values) {
       enumValues[`${name}_${values[index].toUpperCase()}`] = (Number(index) + 1)
     }
@@ -75,9 +76,11 @@ export default function buildDescriptor(fieldData) {
     switch (lowercaseType) {
       case ENUM:
         let pascalName = toPascalCase(name)
+
+        P.add(new protobuf.Field(name, tag, `.oipProto.templates.P.${pascalName}`, rule));
         P.add(new protobuf.Enum(pascalName, enumValues))
-        P.add(new _protobufjs.default.Field(name, tag, pascalName, rule));
-        break
+        break;
+
       case OIP_REF:
         if (!txidMessageAdded) {
           P.add(Txid)
@@ -85,15 +88,14 @@ export default function buildDescriptor(fieldData) {
         }
         let field = new protobuf.Field(name, tag, 'Txid', rule)
         P.add(field)
-        break
+        break;
+
       default:
         P.add(new protobuf.Field(name, tag, type, rule))
     }
     counter += 1
   }
 
-  tmplNameSpace.add(P)
-  tmplNameSpace.filename = 'p.proto'
   let descriptorFromRoot = pRoot.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

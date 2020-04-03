@@ -51,7 +51,7 @@ export default function decodeDescriptor(protoDescriptor, forWeb = false) {
 
     //creates the field object in webFmt
     for (let field of fieldArray) {
-
+      
       // checks type
       // if type matches enum name
       // add enumRefname to the field object
@@ -74,6 +74,14 @@ export default function decodeDescriptor(protoDescriptor, forWeb = false) {
         case 'sfixed64':
           webFmt.fields[field.name] = {
             type: field.type,
+            id: field.id,
+            repeated: field.repeated,
+            extend: field.extend
+          };
+          break
+        case 'Txid':
+          webFmt.fields[field.name] = {
+            type: 'OipRef',
             id: field.id,
             repeated: field.repeated,
             extend: field.extend

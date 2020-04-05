@@ -7,7 +7,7 @@ const OipDetails = ProtoModules.oipProto.OipDetails
 
 const googleApis = 'type.googleapis.com/'
 
-function serializeNameToTypeUrl(name) {
+function serializeNameToTypeUrl (name) {
   if (name.startsWith('tmpl') && name.length === 13) {
     return `${googleApis}oipProto.templates.${name}`
   } else {
@@ -30,12 +30,10 @@ const protoNumberFields = [
   'sfixed64'
 ]
 
-function typeConvBool(values) {
-
-
+function typeConvBool (values) {
   if (Array.isArray(values)) {
-    let newArray = []
-    for (let field of values) {
+    const newArray = []
+    for (const field of values) {
       if (field === 'true') {
         newArray.push(true)
       } else if (field === 'false') {
@@ -56,10 +54,10 @@ function typeConvBool(values) {
   }
 }
 
-function typeConvNumber(values) {
+function typeConvNumber (values) {
   if (Array.isArray(values)) {
-    let newArray = []
-    for (let field of values) {
+    const newArray = []
+    for (const field of values) {
       if (isNaN(Number(field))) {
         throw new Error(`Expecting a number. Received: ${field}`)
       } else {
@@ -76,10 +74,10 @@ function typeConvNumber(values) {
   }
 }
 
-function typeConvBytes(values) {
+function typeConvBytes (values) {
   if (Array.isArray(values)) {
-    let newArray = []
-    for (let field of values) {
+    const newArray = []
+    for (const field of values) {
       newArray.push(Buffer.from(field))
     }
     return newArray
@@ -98,14 +96,14 @@ function typeConvBytes(values) {
  * @param {boolean} [returnAny] - return an array of messages of type ANY
  * @returns {OipDetails|Array.<ANY>}
  */
-export default function buildOipDetails(data, returnAny = false) {
+export default function buildOipDetails (data, returnAny = false) {
   if (!Array.isArray(data)) {
     data = [data]
   }
 
-  let anyDetails = []
+  const anyDetails = []
 
-  for (let item of data) {
+  for (const item of data) {
     const {
       name,
       payload,
@@ -116,10 +114,10 @@ export default function buildOipDetails(data, returnAny = false) {
       throw Error(`Must provide defined name. Received: ${name}`)
     }
     if (!payload) {
-      throw Error(`Must provide payload object to create message from`)
+      throw Error('Must provide payload object to create message from')
     }
     if (!type && !descriptor) {
-      throw Error(`Must provide either a protobufjs Type or a descriptor`)
+      throw Error('Must provide either a protobufjs Type or a descriptor')
     }
 
     let TemplateType
@@ -129,9 +127,9 @@ export default function buildOipDetails(data, returnAny = false) {
 
     // serialize to correct type
     const fieldArray = TemplateType.fieldsArray
-    for (let field in payload) {
+    for (const field in payload) {
       if (payload.hasOwnProperty(field)) {
-        for (let f of fieldArray) {
+        for (const f of fieldArray) {
           if (field === f.name) {
             // check for repeats
             if (f.repeated && !Array.isArray(payload[field])) {
@@ -140,7 +138,7 @@ export default function buildOipDetails(data, returnAny = false) {
             // check for strings
             if (f.type === 'string') {
               if (Array.isArray(payload[field])) {
-                for (let f of payload[field]) {
+                for (const f of payload[field]) {
                   if (typeof f !== 'string') {
                     throw Error(`Expected to be passed a string for field: { ${field} } - was given: ${f}`)
                   }
@@ -183,14 +181,13 @@ export default function buildOipDetails(data, returnAny = false) {
         }
       }
     }
-
     let err = TemplateType.verify(payload)
     if (err) throw Error(`Failed payload verification for: ${name}: ${err}`)
 
-    let message = TemplateType.create(payload)
-    let buffer = TemplateType.encode(message).finish()
+    const message = TemplateType.create(payload)
+    const buffer = TemplateType.encode(message).finish()
 
-    let anyPayload = {
+    const anyPayload = {
       type_url: serializeNameToTypeUrl(name),
       value: buffer
     }
@@ -208,7 +205,7 @@ export default function buildOipDetails(data, returnAny = false) {
 
   const OipDetailsPayload = { details: anyDetails }
 
-  let err = OipDetails.verify(OipDetailsPayload)
+  const err = OipDetails.verify(OipDetailsPayload)
   if (err) throw Error(`Failed to verify OipDetails payload: \n ${err}`)
 
   return OipDetails.create(OipDetailsPayload)

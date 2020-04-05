@@ -10,7 +10,6 @@ const SignedMessage = ProtoModules.oipProto.SignedMessage
 const OipFiveProto = ProtoModules.oipProto.OipFive
 const ANY = ProtoModules.google.protobuf.Any
 
-
 describe('Test builder/helper functions', () => {
   describe('descriptor', () => {
     it('build and deconstruct descriptor', () => {
@@ -29,14 +28,14 @@ describe('Test builder/helper functions', () => {
       const TemplateType = decodeDescriptor(fileDescriptor).type
 
       const nestedArray = TemplateType.nestedArray
-      for (let field of nestedArray) {
+      for (const field of nestedArray) {
         if (field.name !== 'Txid') {
           expect(field instanceof Enum)
           expect(names.includes(field.name))
         }
       }
       const fieldArray = TemplateType.fieldsArray
-      for (let field of fieldArray) {
+      for (const field of fieldArray) {
         expect(names.includes(field.name)).toBeTruthy()
       }
     })
@@ -58,13 +57,13 @@ describe('Test builder/helper functions', () => {
             extend: undefined,
             type: 'string',
             id: 1,
-            repeated: false,
+            repeated: false
           },
           age: {
             extend: undefined,
             id: 2,
             type: 'uint32',
-            repeated: false,
+            repeated: false
           },
           occupation: {
             extend: undefined,
@@ -96,7 +95,7 @@ describe('Test builder/helper functions', () => {
           },
           Hobbies: {
             rule: undefined,
-            values: { 'Hobbies_MTG': 1, 'Hobbies_ABLETON': 2, UNDEFINED: 0 }
+            values: { Hobbies_MTG: 1, Hobbies_ABLETON: 2, UNDEFINED: 0 }
           }
         }
       })
@@ -158,8 +157,8 @@ describe('Test builder/helper functions', () => {
       const descriptor = 'CnkKCnR4aWQucHJvdG8SCG9pcFByb3RvIhgKBFR4aWQSEAoDcmF3GAEgASgMUgNyYXdCCloIb2lwUHJvdG9KMwoFEgMAAAAKCAoBDBIDAAAACggKAQISAwAAAAoJCgIEABIDAAAACgsKBAQAAgASAwAAAGIGcHJvdG8zCscBCgdwLnByb3RvEhJvaXBQcm90by50ZW1wbGF0ZXMaCnR4aWQucHJvdG8iTQoBUBIQCgRtYXNzGAEoA1IEbWFzcxIQCgRuYW1lGAIoCVIEbmFtZRIkCgVtb29ucxgDIAMoCzIOLm9pcFByb3RvLlR4aWRSBW1vb25zSk0KBRIDAAAACggKAQwSAwAAAAoICgECEgMAAAAKCQoCBAASAwAAAAoLCgQEAAIAEgMAAAAKCwoEBAACARIDAAAACgsKBAQAAgISAwAAAA=='
       const type = decodeDescriptor(descriptor).type
       const fieldsArray = type.fieldsArray
-      let tmpObj = {}
-      for (let fa of fieldsArray) {
+      const tmpObj = {}
+      for (const fa of fieldsArray) {
         tmpObj[fa.name] = fa.type
       }
       expect(tmpObj).toEqual({
@@ -170,9 +169,9 @@ describe('Test builder/helper functions', () => {
     })
     it.skip('build descriptor with correct package name', () => {
       // toDo: add expects
-      let values = [
-        {name: 'name', type: 'string'},
-        {name: 'favoriteSport', type: 'string'}
+      const values = [
+        { name: 'name', type: 'string' },
+        { name: 'favoriteSport', type: 'string' }
       ]
 
       const descriptor = buildDescriptor(values)
@@ -184,14 +183,14 @@ describe('Test builder/helper functions', () => {
   describe('recordTemplateBuilder', () => {
     it.skip('build record template', () => {
       // toDo: add expects
-      let values = [
-        {name: 'name', type: 'string'},
-        {name: 'favoriteSport', type: 'string'},
-        {name: 'favoriteFruit', type: 'string'}
+      const values = [
+        { name: 'name', type: 'string' },
+        { name: 'favoriteSport', type: 'string' },
+        { name: 'favoriteFruit', type: 'string' }
       ]
 
       const descriptor = buildDescriptor(values)
-      let template = templateBuilder({
+      const template = templateBuilder({
         friendlyName: 'casualGuy',
         DescriptorSetProto: descriptor,
         description: 'nothing but a casual guy',
@@ -203,13 +202,13 @@ describe('Test builder/helper functions', () => {
   })
   describe('Txid', () => {
     it('build Txid', () => {
-      let txids = [
+      const txids = [
         '169e1e83e930853391bc6f35f605c6754cfead57cf8387639d3b4096c54f18f4',
         'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16'
       ]
-      let txidMessages = buildTxids(txids)
-      for (let txid of txidMessages) {
-        let raw = txid.raw
+      const txidMessages = buildTxids(txids)
+      for (const txid of txidMessages) {
+        const raw = txid.raw
         expect(txids.includes(raw.toString()))
       }
     })
@@ -219,8 +218,10 @@ describe('Test builder/helper functions', () => {
       const descriptor = 'CnkKCnR4aWQucHJvdG8SCG9pcFByb3RvIhgKBFR4aWQSEAoDcmF3GAEgASgMUgNyYXdCCloIb2lwUHJvdG9KMwoFEgMAAAAKCAoBDBIDAAAACggKAQISAwAAAAoJCgIEABIDAAAACgsKBAQAAgASAwAAAGIGcHJvdG8zCscBCgdwLnByb3RvEhJvaXBQcm90by50ZW1wbGF0ZXMaCnR4aWQucHJvdG8iTQoBUBIQCgRtYXNzGAEoA1IEbWFzcxIQCgRuYW1lGAIoCVIEbmFtZRIkCgVtb29ucxgDIAMoCzIOLm9pcFByb3RvLlR4aWRSBW1vb25zSk0KBRIDAAAACggKAQwSAwAAAAoICgECEgMAAAAKCQoCBAASAwAAAAoLCgQEAAIAEgMAAAAKCwoEBAACARIDAAAACgsKBAQAAgISAwAAAA=='
       const name = 'tmpl_370840EECB3C27CA'
       let detailsData = {
-        name, descriptor, payload: {
-          mass: 'string',
+        name,
+        descriptor,
+        payload: {
+          mass: 'string'
         }
       }
       let details
@@ -231,7 +232,9 @@ describe('Test builder/helper functions', () => {
       }
       expect(details).toBeUndefined()
       detailsData = {
-        name, descriptor, payload: {
+        name,
+        descriptor,
+        payload: {
           name: 64
         }
       }
@@ -242,7 +245,9 @@ describe('Test builder/helper functions', () => {
       }
       expect(details).toBeUndefined()
       detailsData = {
-        name, descriptor, payload: {
+        name,
+        descriptor,
+        payload: {
           moons: ['not a txid']
         }
       }
@@ -296,8 +301,8 @@ describe('Test builder/helper functions', () => {
       } catch (err) {
         expect(err).toBeUndefined()
       }
-      for (let n of any) {
-        let type_url = n.type_url
+      for (const n of any) {
+        const type_url = n.type_url
         expect(type_url.startsWith('type.googleapis.com/oipProto.templates.tmpl_')).toBeTruthy()
       }
     })
@@ -306,7 +311,7 @@ describe('Test builder/helper functions', () => {
     it('decode signed message', () => {
       let message = 'p64:CpcBEpQBOpEBCkMKNHR5cGUuZ29vZ2xlYXBpcy5jb20vb2lwUHJvdG8udGVtcGxhdGVzLnRtcGxfMkYyOUQ4QzASCwoDZmx5EgRlbW1hCkoKNHR5cGUuZ29vZ2xlYXBpcy5jb20vb2lwUHJvdG8udGVtcGxhdGVzLnRtcGxfNUQ4REI4NUISEgoEcnlsbxIFZWFydGgaA3JlZBABGAEiIm9ScG1lWXZqZ2Zoa1NwUFdHTDhlUDVlUHVweW9wM2h6OWoqQR8cQQI9PEBYKuv15qK4aJ1BDg+pdLnuFSRMlNKtUg1zSRv3QTPefPerz8MVTqd5o77mIh4klLFuMzeEt5j/uUiz'
       const trimPrefix = message => {
-        let mes = message.split(':')
+        const mes = message.split(':')
         return mes[1]
       }
       message = trimPrefix(message)
@@ -320,7 +325,7 @@ describe('Test builder/helper functions', () => {
       const record = decodedSerializedMessage.record
       let details = record.details
       details = details.details
-      for (let detail of details) {
+      for (const detail of details) {
         expect(detail instanceof ANY)
         expect(detail.type_url.startsWith('type.googleapis.com/oipProto.templates.tmpl_')).toBeTruthy()
         console.log(typeof detail.value === 'object')

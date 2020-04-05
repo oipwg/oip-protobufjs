@@ -9,7 +9,7 @@ import {
 } from './index'
 import buildOipDetails from './buildOipDetails'
 
-export default function recordProtoBuilder({
+export default function recordProtoBuilder ({
   tags,
   payment,
   details,
@@ -31,10 +31,7 @@ export default function recordProtoBuilder({
   // build details from param if passed
   if (detailsData) {
     try {
-
       details = buildOipDetails(detailsData)
-
-
     } catch (err) {
       throw Error(`Failed to build OipDetails in recordProtoBuilder: \n ${err}`)
     }
@@ -52,7 +49,7 @@ export default function recordProtoBuilder({
   } catch (err) {
     throw Error(`Failed to build record in recordProtoBuilder: \n ${err}`)
   }
-  let { recordMessage } = recordData
+  const { recordMessage } = recordData
 
   // 2 build OIP5
   let oipFiveData

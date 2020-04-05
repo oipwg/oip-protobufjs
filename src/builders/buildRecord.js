@@ -15,6 +15,7 @@ export default function buildRecord ({
     details,
     permissions
   }
+
   let err = RecordProto.verify(recordPayload)
   if (err) {
     throw new Error(err)

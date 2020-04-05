@@ -18,43 +18,44 @@ import { camelCase } from 'lodash'
  * @param {fieldData|Array.<fieldData>} fieldData
  * @returns {Uint8Array | Buffer | never | void}
  */
-export default function buildDescriptor (fieldData) {
+export default function buildDescriptor(fieldData) {
   if (!Array.isArray(fieldData)) {
     fieldData = [fieldData]
   }
   const reg = /^[a-zA-Z]\w*$/
 
   for (let field of fieldData) {
-      if (!reg.test(field.name)) {
-        throw Error(`invalid field name: ${field.name}. Must start with a letter and only contain letters/numbers.`)
-      }
-      if (field.values) {
-        for (let value of field.values) {
-          if (!reg.test(value)) {
-            throw Error(`invalid enum value: ${value} for enum field: ${field.name}. Must start with a letter and only contain letters/numbers.`)
-          }
+    if (!reg.test(field.name)) {
+      throw Error(`invalid field name: ${field.name}. Must start with a letter and only contain letters/numbers.`)
+    }
+    if (field.values) {
+      for (let value of field.values) {
+        if (!reg.test(value)) {
+          throw Error(`invalid enum value: ${value} for enum field: ${field.name}. Must start with a letter and only contain letters/numbers.`)
         }
       }
     }
+  }
 
   let pRoot = new protobuf.Root()
-  let oipProtoNameSpace = pRoot.define('oipProto')
-  let tmplNameSpace = oipProtoNameSpace.define('templates')
+  let tmplNameSpace = pRoot.define('oipProto.templates')
+  tmplNameSpace.filename = 'p.proto'
 
   const Txid = new protobuf.Type('Txid').add(
     new protobuf.Field('raw', 1, 'bytes')
   )
 
   const P = new protobuf.Type('P')
+  tmplNameSpace.add(P)
 
   let txidMessageAdded = false
   const ENUM = 'enum'
   const OIP_REF = 'oipref'
 
-  function serializeEnumValues (values, name) {
+  function serializeEnumValues(values, name) {
     name = toPascalCase(name)
     let enumValues = {}
-    enumValues['UNDEFINED'] = 0 // set default value
+    enumValues[`${name}_UNDEFINED`] = 0 // set default value
     for (let index in values) {
       enumValues[`${name}_${values[index].toUpperCase()}`] = (Number(index) + 1)
     }
@@ -74,8 +75,12 @@ export default function buildDescriptor (fieldData) {
     const tag = field.index || index
     switch (lowercaseType) {
       case ENUM:
-        P.add(new protobuf.Enum(toPascalCase(name), enumValues))
-        break
+        let pascalName = toPascalCase(name)
+
+        P.add(new protobuf.Field(name, tag, `.oipProto.templates.P.${pascalName}`, rule));
+        P.add(new protobuf.Enum(pascalName, enumValues))
+        break;
+
       case OIP_REF:
         if (!txidMessageAdded) {
           P.add(Txid)
@@ -83,15 +88,14 @@ export default function buildDescriptor (fieldData) {
         }
         let field = new protobuf.Field(name, tag, 'Txid', rule)
         P.add(field)
-        break
+        break;
+
       default:
         P.add(new protobuf.Field(name, tag, type, rule))
     }
     counter += 1
   }
 
-  tmplNameSpace.add(P)
-  tmplNameSpace.filename = 'p.proto'
   let descriptorFromRoot = pRoot.toDescriptor('proto3')
   let buffer = descriptor.FileDescriptorSet.encode(descriptorFromRoot).finish()
 

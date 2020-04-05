@@ -272,6 +272,24 @@
               ]
             ]
           },
+          PubKey: {
+            fields: {
+              network: {
+                type: "NetworkTypes",
+                id: 1
+              },
+              raw: {
+                type: "bytes",
+                id: 2
+              }
+            }
+          },
+          NetworkTypes: {
+            values: {
+              InvalidNetwork: 0,
+              Flo: 1
+            }
+          },
           SignedMessage: {
             fields: {
               SerializedMessage: {

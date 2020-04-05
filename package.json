@@ -2,6 +2,7 @@
   "name": "oip-protobufjs",
   "version": "1.6.12",
   "main": "lib/index",
+  "files": ["lib"],
   "license": "MIT",
   "scripts": {
     "compile:proto": "node compile.js",

@@ -74,14 +74,28 @@ describe('Test builder/helper functions', () => {
           friends: {
             extend: undefined,
             id: 6,
-            type: 'Txid',
+            type: 'OipRef',
             repeated: true
           },
           familyMembers: {
             extend: undefined,
             id: 7,
-            type: 'Txid',
+            type: 'OipRef',
             repeated: true
+          },
+          crystals: {
+            enumRefName: 'Crystals',
+            extend: undefined,
+            id: 4,
+            repeated: false,
+            type: 'Crystals'
+          },
+          hobbies: {
+            enumRefName: 'Hobbies',
+            extend: undefined,
+            id: 5,
+            repeated: false,
+            type: 'Hobbies'
           }
         },
         enums: {
@@ -90,12 +104,12 @@ describe('Test builder/helper functions', () => {
             values: {
               Crystals_AGATE: 1,
               Crystals_ROSE: 2,
-              UNDEFINED: 0
+              Crystals_UNDEFINED: 0
             }
           },
           Hobbies: {
             rule: undefined,
-            values: { Hobbies_MTG: 1, Hobbies_ABLETON: 2, UNDEFINED: 0 }
+            values: { Hobbies_MTG: 1, Hobbies_ABLETON: 2, Hobbies_UNDEFINED: 0 }
           }
         }
       })
@@ -208,6 +222,12 @@ describe('Test builder/helper functions', () => {
       ]
       const txidMessages = buildTxids(txids)
       for (const txid of txidMessages) {
+        const raw = txid.raw
+        expect(txids.includes(raw.toString()))
+      }
+
+      const txidMessages2 = buildTxids(txidMessages)
+      for (const txid of txidMessages2) {
         const raw = txid.raw
         expect(txids.includes(raw.toString()))
       }

@@ -27,8 +27,8 @@ describe('RecordProto', () => {
       occupation: 'dev',
       crystals: 2,
       hobbies: 2,
-      friends: [Buffer.from('0x11')],
-      familyMembers: [Buffer.from('0x33')]
+      friends: ['1111111111111111111111111111111111111111111111111111111111111111'],
+      familyMembers: ['3333333333333333333333333333333333333333333333333333333333333333']
     }
 
     const details = buildOipDetails([{ payload, name: 'mockName', descriptor: fileDescriptor }])

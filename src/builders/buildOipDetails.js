@@ -33,24 +33,28 @@ const protoNumberFields = [
 function typeConvBool (values) {
   if (Array.isArray(values)) {
     const newArray = []
-    for (const field of values) {
-      if (field === 'true') {
-        newArray.push(true)
-      } else if (field === 'false') {
-        newArray.push(false)
-      } else {
-        throw new Error(`Expecting a boolean. Was given: ${value}`)
-      }
+    for (const value of values) {
+      newArray.push(_typeConvBool(value))
     }
     return newArray
   } else {
-    if (values === 'true') {
+    return _typeConvBool(values)
+  }
+}
+
+function _typeConvBool (value) {
+  switch ((value + '').toLowerCase()) {
+    case 'true':
+    case 't':
+    case '1':
       return true
-    } else if (values === 'false') {
+    case 'false':
+    case 'f':
+    case '0':
+    case '':
       return false
-    } else {
-      throw new Error(`Expecting a boolean. Was given: ${values}`)
-    }
+    default:
+      throw new Error(`Expecting a boolean. Was given: ${value}`)
   }
 }
 
@@ -128,7 +132,7 @@ export default function buildOipDetails (data, returnAny = false) {
     // serialize to correct type
     const fieldArray = TemplateType.fieldsArray
     for (const field in payload) {
-      if (payload.hasOwnProperty(field)) {
+      if (Object.prototype.hasOwnProperty.call(payload, field)) {
         for (const f of fieldArray) {
           if (field === f.name) {
             // check for repeats

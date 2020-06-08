@@ -18,21 +18,21 @@ export default function buildTxids (txids) {
     }
     const newArray = []
     for (const txid of txids) {
-      if (txid.length !== 64) {
-        throw Error(`Txid must be 64 characters long. Was given: ${txid}`)
-      }
       newArray.push(createTxid(txid))
     }
     return newArray
   } else {
-    if (txids.length !== 64) {
-      throw Error(`Txid must be 64 characters long. Was given: ${txid}`)
-    }
     return createTxid(txids)
   }
 }
 
 function createTxid (txid) {
+  if (txid instanceof Txid) {
+    return txid
+  }
+  if (txid.length !== 64) {
+    throw Error(`Txid must be 64 characters long. Was given: ${txid}`)
+  }
   const payload = {
     raw: Buffer.from(txid, 'hex')
   }

@@ -7,21 +7,17 @@ const Txid = ProtoModules.oipProto.Txid
  * @param {string|Array.<string>} txids - a string txid or an array of string txids
  */
 export default function buildTxids (txids) {
-  // handle null txids. protobuf.js type needs an object to succeed
-  if (!txids) {
-    return {}
-  }
   if (Array.isArray(txids)) {
-    // handle null txids
-    if (!txids.length) {
-      return {}
-    }
     const newArray = []
     for (const txid of txids) {
       newArray.push(createTxid(txid))
     }
     return newArray
   } else {
+    // handle null txid, protobuf.js type needs an object to succeed
+    if (!txids) {
+      return {}
+    }
     return createTxid(txids)
   }
 }

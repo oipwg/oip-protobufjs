@@ -16,7 +16,7 @@
     "bitcoinjs-message": "^2.1.0",
     "js-oip": "^2.4.6",
     "js-pascalcase": "^1.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "protobufjs": "^6.9.0",
     "wif": "^2.0.6"
   },

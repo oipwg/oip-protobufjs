@@ -12,20 +12,20 @@
     "prepublish": "yarn compile"
   },
   "dependencies": {
-    "bitcoinjs-lib": "^5.1.10",
-    "bitcoinjs-message": "^2.1.0",
-    "js-oip": "^2.4.6",
+    "bitcoinjs-lib": "^6.0.1",
+    "bitcoinjs-message": "^2.2.0",
+    "js-oip": "^2.4.9",
     "js-pascalcase": "^1.2.1",
-    "lodash": "^4.17.15",
-    "protobufjs": "^6.9.0",
+    "lodash": "^4.17.21",
+    "protobufjs": "^6.11.2",
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/node": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "jest": "^26.0.1",
-    "standard": "^14.3.4"
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "jest": "^27.5.1",
+    "standard": "^16.0.4"
   }
 }
